@@ -7,15 +7,20 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, )
 
 
+class GuestUser(models.Model):
+    username = models.CharField(max_length=150)
+
+
 class Donation(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
+    guest_user = models.ForeignKey(GuestUser, on_delete=models.CASCADE, blank=True, null=True)
     first_Name = models.CharField(max_length=40)
     last_Name = models.CharField(max_length=40)
-    email = models.CharField(max_length=50, unique=True)
-    phone = models.CharField(max_length=12, default="", unique=True)
-    date = models.DateTimeField(auto_now_add=True)
+    email = models.CharField(max_length=50)
+    phone = models.CharField(max_length=12, default="")
     amount = models.DecimalField(max_digits=10, decimal_places=2)
     program = models.ForeignKey('Program', on_delete=models.CASCADE)
+    date = models.DateTimeField(auto_now_add=True)
     # payment =
 
 

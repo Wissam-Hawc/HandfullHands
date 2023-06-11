@@ -19,6 +19,19 @@
 </head>
 <body>
 {% block content %}
+{% if donation_success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
+    Thank you for your donation! We appreciate your support.
+    <button type="button" class="close" data-dismiss="alert"  aria-label="Close" onclick="closeDonationSuccess()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<script>
+    function closeDonationSuccess() {
+        document.getElementById("donation-success").style.display = "none";
+    }
+</script>
+{% endif %}
 {% if registration_success %}
 <div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success">
     Thank you for registering!

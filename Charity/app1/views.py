@@ -1,15 +1,19 @@
+import stripe
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
-from .models import Content, Program, Contact
+from .models import Content, Program, Contact, Donation, GuestUser
 
 
 def home(request):
     registration_success = request.session.pop('registration_success', False)
+    donation_success = request.session.pop('donation_success', False)
     programs = Program.objects.all()  # Retrieve the programs data from the database
     context = {
         'registration_success': registration_success,
+        'donation_success': donation_success,
         'programs': programs
     }
     return render(request, 'pages/home.html', context)
@@ -111,3 +115,69 @@ def register(request):
         return redirect('home')  # Redirect to home page
 
     return render(request, 'pages/register.html')
+
+
+# for donation and stripe
+stripe.api_key = 'sk_test_51NFCLcL1DjYxHgevsb4mNKbO1cwy2AwPolO8DnyHgm2ZnqwFgjwHthl7mwwdafP9Oz7uqG7qKunCZp8TQkYDZCZq00Lv9TIEBt'
+
+
+def stripePay(request):
+    if request.method == "POST":
+        amount = int(request.POST["amount"])
+        program_name = request.POST.get("program")
+        full_name = request.POST.get("full_name")
+        email = request.POST.get("email")
+        phone_number = request.POST.get("number")
+
+        # Create customer
+        try:
+            customer = stripe.Customer.create(
+                email=email,
+                name=full_name,
+                description="Test donation",
+                source=request.POST['stripeToken']
+            )
+        except stripe.error.CardError as e:
+            return HttpResponse("<h1>There was an error charging your card:</h1>" + str(e))
+        except stripe.error.RateLimitError as e:
+            return HttpResponse("<h1>Rate error!</h1>")
+        except stripe.error.AuthenticationError as e:
+            return HttpResponse("<h1>Invalid API auth!</h1>")
+        except stripe.error.StripeError as e:
+            print(e)
+            return HttpResponse("<h1>Stripe error!</h1>")
+        except stripe.error.InvalidRequestError as e:
+            return HttpResponse("<h1>Invalid requestor!</h1>")
+        except Exception as e:
+            pass
+
+        # Stripe charge
+        charge = stripe.Charge.create(
+            customer=customer,
+            amount=int(amount) * 100,
+            currency='usd',
+            description="Test donation"
+        )
+        transRetrive = stripe.Charge.retrieve(charge["id"])
+        charge.save()  # Uses the same API Key.
+
+        # Save the form data to the Donation model
+        program = Program.objects.get(program_name=program_name)
+        donation = Donation.objects.create(
+            user=request.user if request.user.is_authenticated else None,
+            guest_user=None if request.user.is_authenticated else GuestUser.objects.create(username='guest'),
+            first_Name=full_name,
+            last_Name="",
+            email=email,
+            phone=phone_number,
+            amount=amount,
+            program=program
+        )
+
+        request.session['donation_success'] = True
+
+        return redirect('home')
+
+    # Retrieve the program names and pass them to the template context
+
+    return render(request, "pages/donation.html", {"programs": Program.objects.all()})
