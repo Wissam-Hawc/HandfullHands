@@ -1,12 +1,17 @@
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
 from django.shortcuts import render, redirect
 from .models import Content, Program, Contact
 
 
 def home(request):
-    program = Program.objects.all()  # Call the programs function to retrieve the programs data
-    context = {'programs': program}
+    registration_success = request.session.pop('registration_success', False)
+    programs = Program.objects.all()  # Retrieve the programs data from the database
+    context = {
+        'registration_success': registration_success,
+        'programs': programs
+    }
     return render(request, 'pages/home.html', context)
 
 
@@ -17,8 +22,8 @@ def programs(request):
 
 
 def about(request):
-    # view logic goes here
-    return render(request, 'pages/about.html')
+    content = Content.objects.get(page_name='about')  # Retrieve the content for the about page
+    return render(request, 'pages/about.html', {'content': content})
 
 
 def contact(request):
@@ -68,3 +73,41 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You Were Logged Out!")
     return redirect("home")
+
+
+def register(request):
+    if request.method == 'POST':
+        # Get the form data from the POST request
+        username = request.POST.get('username')
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        email = request.POST.get('email')
+        password = request.POST.get('password')
+        confirm_password = request.POST.get('confirm_password')
+
+        # Check if the username already exists
+        if User.objects.filter(username=username).exists():
+            error_message = "Username already taken."
+            return render(request, 'pages/register.html', {'error_message': error_message})
+
+        # Perform your custom validation here
+        if password != confirm_password:
+            error_message = "Passwords do not match."
+            return render(request, 'pages/register.html', {'error_message': error_message})
+
+        # Create a new User object and save it
+        user = User.objects.create_user(
+            username=username,
+            password=password
+        )
+        user.first_name = first_name
+        user.last_name = last_name
+        user.email = email
+        user.save()
+
+        # Set a success message
+        request.session['registration_success'] = True
+
+        return redirect('home')  # Redirect to home page
+
+    return render(request, 'pages/register.html')

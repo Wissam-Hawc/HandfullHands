@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         /* CSS styles */
         .footer {
@@ -14,18 +14,34 @@
         }
 
         /* Add additional CSS styles for other footer elements, such as text, links, etc. */
+
     </style>
 </head>
 <body>
-    {% block content %}
-        {% include 'components/navbar.html' %}
+{% block content %}
+{% if registration_success %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success">
+    Thank you for registering!
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeRegistrationSuccess()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<script>
+    function closeRegistrationSuccess() {
+        document.getElementById("registration-success").style.display = "none";
+    }
+</script>
+{% endif %}
+{% include 'components/navbar.html' %}
 
-        {% include 'components/slider.html' %}
+{% include 'components/slider.html' %}
 
-        {% include 'components/cards.html' %}
+{% include 'components/cards.html' %}
 
-        {% include 'components/footer.html' %}
+{% include 'components/footer.html' %}
 
-    {% endblock %}
+{% endblock %}
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
+</script>
 </body>
 </html>

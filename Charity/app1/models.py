@@ -41,7 +41,7 @@ class Content(models.Model):
     page_name = models.CharField(max_length=40, choices=PAGE_CHOICES, unique=True)
     title = models.CharField(max_length=40)
     description = models.CharField(max_length=200)
-    image = models.ImageField(upload_to='images/')
+    image = models.ImageField(upload_to='images/', blank=True)
     createdAT = models.DateTimeField(auto_now_add=True)
 
 
