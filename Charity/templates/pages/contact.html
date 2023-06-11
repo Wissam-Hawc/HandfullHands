@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Form</title>
+    <style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        margin: 0;
+        padding: 0;
+    }
+
+    .container5 {
+        width: 90%;
+        max-width: 900px; /* Adjust the max-width as needed */
+        margin: 100px auto;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        background-color: #fff;
+        border-radius: 5px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+        padding: 20px;
+    }
+
+    .form-wrapper {
+        width: 100%;
+        padding: 40px;
+    }
+
+    .form-wrapper h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #3e8da8;
+        letter-spacing: 2px;
+    }
+
+    .form-group {
+        margin-bottom: 30px;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+        letter-spacing: 1px;
+    }
+
+    .form-group input[type="text"],
+    .form-group input[type="email"],
+    .form-group input[type="tel"],
+    .form-group textarea {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+    }
+
+    .form-group input[type="text"]:focus,
+    .form-group input[type="email"]:focus,
+    .form-group input[type="tel"]:focus,
+    .form-group textarea:focus {
+        border-color: #3e8da8;
+    }
+
+    .form-group textarea {
+        resize: vertical;
+        height: 100px;
+    }
+
+    .form-group button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #3e8da8;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .form-group button:hover {
+        background-color: #236b86;
+    }
+
+    .contact-info {
+        width: 100%;
+        padding: 40px;
+        text-align: center;
+        background-color: #3e8da8;
+        color: #fff;
+    }
+
+    .contact-info h3 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        letter-spacing: 2px;
+    }
+
+    .contact-info p {
+        margin: 10px 0;
+        line-height: 1.6;
+    }
+
+    @media (min-width: 768px) {
+        .container5 {
+            padding: 40px;
+        }
+
+        .form-wrapper {
+            width: 60%;
+        }
+
+        .contact-info {
+            width: 40%;
+        }
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+        {% include 'components/navbar.html' %}
+        <div class="container5">
+            <div class="form-wrapper">
+                <h2>CONTACT US</h2>
+                <form method="POST" action="">
+                    {% csrf_token %}
+                    <div class="form-group">
+                        <label for="fullname">Full Name:</label>
+                        <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email:</label>
+                        <input type="email" id="email" name="email" placeholder="Enter your email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="phone">Phone Number:</label>
+                        <input type="tel" id="phone" name="phone" placeholder="Enter your phone number" maxlength="12" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="message">Message:</label>
+                        <textarea id="message" name="message" placeholder="Enter your message" required></textarea>
+                    </div>
+
+                    <div class="form-group">
+                        <button type="submit">Submit</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h3>Contact Information</h3>
+                <p>AZMI Fresco </p>
+                <p>Tripoli, 1300</p>
+                <p>Lebanon</p>
+                <p>Email: donations@hopfulhand.org</p>
+                <p>Phone: +961 03 333 333</p>
+                <p>Fax: +961 06 383 000</p>
+            </div>
+        </div>
+
+        {% include 'components/footer.html' %}
+    {% endblock %}
+</body>
+</html>

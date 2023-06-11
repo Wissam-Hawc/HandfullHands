@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slider</title>
+    <style>
+        /* CSS styles */
+        .container1 {
+            width: 100%;
+            height: 80vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+        }
+
+        .wrapper {
+            height: 100%;
+            display: flex;
+            transition: all 1.5s ease;
+        }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            background-size: cover; /* Added background-size property */
+        }
+
+        .slide img {
+            width: 100%;
+            height: auto;
+        }
+
+        .info-container {
+            flex: 1;
+            padding: 50px;
+        }
+
+        .fixed-info {
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            transform: translate(0, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .fixed-info .title {
+            font-size: 70px;
+            color: white;
+        }
+
+        .fixed-info .desc {
+            margin: 50px 0;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: white;
+        }
+
+        .button {
+            padding: 10px;
+            font-size: 20px;
+            background-color: transparent;
+            cursor: pointer;
+            color: white;
+            border: 2px solid white;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            margin-left: 10px; /* Adjust the margin-left value as needed */
+        }
+
+        /* Hover effect for the button */
+        .button:hover {
+            background-color: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container1 {
+                height: 60vh;
+            }
+            .fixed-info .title {
+                font-size: 40px;
+            }
+            .fixed-info .desc {
+                font-size: 16px;
+            }
+            .button {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container1 {
+                height: 50vh;
+            }
+            .fixed-info .title {
+                font-size: 30px;
+            }
+            .fixed-info .desc {
+                font-size: 14px;
+            }
+            .button {
+                font-size: 14px;
+            }
+        }
+    </style>
+</head>
+
+<body style="width:100%;">
+    {% load static %}
+    <div class="container1">
+        <div class="wrapper" id="wrapper">
+            <div class="slide" style="background-image: url({% static 'images/Cover.jpg' %});"></div>
+            <div class="slide" style="background-image: url({% static 'images/aaaa.jpg' %});"></div>
+            <div class="slide" style="background-image: url({% static 'images/img.jpg' %});"></div>
+        </div>
+
+        <div class="fixed-info">
+            <h1 class="title">Hopfulhands</h1>
+            <p class="desc">Bringing Hope, Changing Lives</p>
+            <button class="button">Start with a little</button>
+        </div>
+    </div>
+
+    <script>
+        const wrapper = document.getElementById('wrapper');
+        const slides = document.getElementsByClassName('slide');
+        let slideIndex = 0;
+
+        function showSlide(index) {
+            if (index < 0) {
+                slideIndex = slides.length - 1;
+            } else if (index >= slides.length) {
+                slideIndex = 0;
+            }
+
+            wrapper.style.transform = `translateX(-${slideIndex * 100}vw)`;
+        }
+
+        function autoChangeSlide() {
+            slideIndex++;
+            showSlide(slideIndex);
+        }
+
+        // Auto change slide every 3 seconds
+        setInterval(autoChangeSlide, 3000);
+
+        // Initially show the first slide
+        showSlide(slideIndex);
+
+    </script>
+</body>
+
+</html>

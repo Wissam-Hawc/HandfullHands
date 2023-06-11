@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Bootstrap CDN -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <!-- Font Awesome -->
+  <script src="https://kit.fontawesome.com/4d0b4c932e.js" crossorigin="anonymous"></script>
+  <style>
+    /* Custom CSS for the responsive footer */
+
+    .main {
+      height: 20vh;
+      overflow: hidden;
+    }
+
+    #Footer {
+      background-color: #3e8da8;
+      color: #fff;
+      padding-top: 40px;
+    }
+
+    #Footer .container {
+      padding-bottom: 30px;
+    }
+
+    #Footer h5 {
+      color: #fff;
+      font-weight: bold;
+      margin-top: 0;
+    }
+
+    #Footer hr {
+      border-top-color: #fff;
+      width: 90px;
+      margin-top: 0;
+      margin-bottom: 20px;
+    }
+
+    #Footer p {
+      color: #fff;
+    }
+
+    #Footer a {
+      color: #fff;
+      text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .main {
+        height: 40vh;
+      }
+
+      #Footer {
+        padding-top: 20px;
+        padding-bottom: 20px;
+      }
+
+      #Footer .container {
+        text-align: center;
+      }
+
+      #Footer .row {
+        flex-direction: column;
+      }
+
+      #Footer .col-md-4 {
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="main"></div>
+  <footer id="Footer">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-4">
+          <h5>About Our Company</h5>
+          <hr>
+          <p>Here you can use rows and columns to organize your footer content. Lorem ipsum dolor sit amet, consectetur adipisicing elit.</p>
+        </div>
+        <div id="link10" class="col-md-2 col-lg-2 col-xl-2">
+          <h5>Products</h5>
+          <hr>
+          <p>
+            <a href="#!">Travelling</a>
+          </p>
+          <p>
+            <a href="#!">About</a>
+          </p>
+          <p>
+            <a href="#!">BrandFlow</a>
+          </p>
+          <p>
+            <a href="#!">Services</a>
+          </p>
+        </div>
+        <div class="col-md-4 col-lg-3 col-xl-3">
+          <h5>Contact</h5>
+          <hr>
+          <p>
+            <i class="fas fa-home mr-3"></i> Tripoli, Lebanon</p>
+          <p>
+            <i class="fas fa-envelope mr-3"></i> HopefulHands@gmail.com</p>
+          <p>
+            <i class="fas fa-phone mr-3"></i> +961 xxxxxxxxx</p>
+          <p>
+            <i class="fas fa-print mr-3"></i> +961 xxxxxxxxx</p>
+        </div>
+      </div>
+    </div>
+  </footer>
+</body>
+</html>

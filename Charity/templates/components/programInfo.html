@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Programs</title>
+  <style>
+    /* CSS styles for the programs page */
+<!--    body {-->
+<!--      font-family: Arial, sans-serif;-->
+<!--      margin: 0;-->
+<!--      padding: 20px;-->
+<!--    }-->
+
+    .program-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+    }
+
+    .program-card {
+      width: calc(50% - 10px); /* Adjusted width to show 2 programs per line */
+      margin-bottom: 20px;
+      background-color: #f2f2f2;
+      border-radius: 5px;
+      padding: 20px;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+
+    .program-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    }
+
+    .program-name {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .program-description {
+      margin-bottom: 10px;
+    }
+
+    .program-image {
+      max-width: 100%;
+      height: auto;
+      margin-bottom: 10px;
+    }
+
+    .program-details {
+      font-size: 14px;
+    }
+
+    @media (max-width: 768px) {
+      .program-card {
+        width: 100%; /* Display one program per line on small screens */
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="program-container">
+  {% for program in programs|slice:":4" %}
+  <div class="program-card">
+    <img class="program-image" src="{{ program.program_image.url }}" alt="Program Image">
+    <div class="program-name">{{ program.program_name }}</div>
+    <div class="program-description">{{ program.program_description }}</div>
+    <div class="program-details">
+      <p><strong>Budget:</strong> ${{ program.budget }}</p>
+      <p><strong>Start Date:</strong> {{ program.start_date }}</p>
+      <p><strong>End Date:</strong> {{ program.end_date }}</p>
+      <p><strong>Goal:</strong> {{ program.goal }}</p>
+    </div>
+  </div>
+  {% endfor %}
+
+  </div>
+</body>
+</html>

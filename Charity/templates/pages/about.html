@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f2f2f2;
+        padding: 0;
+    }
+
+    .container11 {
+        margin: 30px;
+        max-width: 900px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #fff;
+    }
+
+    .container h2 {
+        color: #3e8da8;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+   .container11 h2 {
+        color: #3e8da8;
+        text-align: center;
+        margin-bottom: 20px;
+        margin-top: 20px;
+    }
+
+    .container p {
+        line-height: 1.6;
+        margin-bottom: 15px;
+    }
+img {
+    display: block;
+    width: 200px; /* Adjust this value to your desired width */
+    height: 200px; /* Adjust this value to your desired height */
+    margin: 0;
+}
+
+
+    .team-section {
+        width: 1000px;
+        padding: 0px;
+        background-color: #fff;
+
+    }
+
+    .team-section h2 {
+    margin-left:10%;
+    margin-bottom:40px;
+    }
+
+    .team-member-info {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .team-member {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        gap: 20px; /* Adjust this value to your desired spacing */
+    }
+
+
+    .team-member-text {
+        margin-left: 10px;
+    }
+
+    .team-member img {
+        margin-bottom: 10px;
+    }
+
+    .team-member h3,
+    .team-member p {
+        margin: 0;
+    }
+.values-section {
+    margin: 30px;
+    max-width: 900px;
+    margin: 50px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    border-radius: 5px;
+    display: flex;
+}
+.value-icon{
+margin-left:60px
+}
+.values-section h2 {
+    margin: 30px;
+}
+
+.value {
+    flex: 1;
+    margin-right: 20px;
+}
+
+
+.value:last-child {
+    margin-right: 0;
+}
+
+.value h3,
+.value p {
+    margin: 0;
+}
+
+.one {
+    font-family: 'Poppins', sans-serif;
+    color: #424242;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: inherit;
+    margin: initial !important;
+    grid-area: one;
+}
+
+.icon {
+    font-family: 'Poppins', sans-serif;
+    color: #424242;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: inherit;
+    margin: 3%;
+}
+
+.value-section {
+    font-family: 'Poppins', sans-serif;
+    font-size: 15px;
+    line-height: 30px;
+    box-sizing: inherit;
+    background-color: #fff;
+    text-align: center;
+    display: grid;
+    padding: 6.64% 4%;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto;
+    grid-template-areas: "one two three";
+}
+
+.two {
+    font-family: 'Poppins', sans-serif;
+    color: #424242;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: inherit;
+    margin: initial !important;
+    grid-area: two;
+}
+
+.number {
+    line-height: 30px;
+    box-sizing: inherit;
+    color: #c4d5dd;
+    font-family: 'Poppins', sans-serif;
+    margin: 3%;
+    display: inline-block;
+    width: 100%;
+    text-align: left;
+    font-size: 75px;
+    position: relative;
+    margin-top: 20%;
+    margin-left: 6%;
+}
+
+.text {
+    font-family: 'Poppins', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: none;
+    text-align: center;
+    box-sizing: inherit;
+    margin: 3%;
+    font-size: 14px;
+    line-height: 26px;
+    padding: 0 5%;
+}
+
+.three {
+    font-family: 'Poppins', sans-serif;
+    color: #424242;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: inherit;
+    margin: initial !important;
+    grid-area: three;
+}
+
+.four {
+    font-family: Adelle-Regular, "Courier New", monospace;
+    color: #424242;
+    font-size: 15px;
+    line-height: 30px;
+    text-align: center;
+    box-sizing: inherit;
+    margin: initial !important;
+    grid-area: four;
+}
+
+.pAbout {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+
+
+</style>
+
+</head>
+<body>
+{% block content %}
+    {% include 'components/navbar.html' %}
+    {% load static %}  <!-- Add this line -->
+    <div class="container11">
+        <h2>About Us</h2>
+        <p>Hopfull Hands is a charitable organization dedicated to making a positive impact on the lives of those in need. Founded with a vision of spreading hope and support, Hopfull Hands strives to uplift communities and individuals through various initiatives and programs.
+
+At Hopfull Hands, our mission is to extend a helping hand to those facing challenging circumstances and create a brighter future for them. We believe that every person deserves a chance to thrive and achieve their full potential, regardless of their background or circumstances.
+
+Through our diverse range of programs, we aim to address key areas of need, including education, healthcare, poverty alleviation, and community development. We work closely with local communities, partner organizations, and dedicated volunteers to implement sustainable projects that bring about long-lasting change.
+
+Education is at the core of our efforts. We are passionate about providing access to quality education for children and adults alike. By supporting schools, organizing educational workshops, and offering scholarships, we strive to empower individuals with the knowledge and skills they need to build a better future for themselves and their communities.</p>
+       </div>
+
+  <section class="fullContainer" id="aboutSection">
+    <div class="container">
+        <h2 class="sectionTitle">
+            OUR VALUES
+        </h2>
+<hr>
+        <section class="value-section">
+            <div class="value">
+                <div class="value-number"></div>
+                <div class="value-icon"><img
+                        src="https://www.givewell.org/themes/gw_basic/images/new-homepage/rosette.svg"
+                        alt="rosette icon"></div>
+                <div class="value-text">HopfulHands is dedicated to sharing charities that are focused on saving and improving lives.
+                </div>
+            </div>
+            <div class="value">
+                <div class="value-number"></div>
+                <div class="value-icon"><img
+                        src="https://www.givewell.org/themes/gw_basic/images/new-homepage/top-charities-button.svg"
+                        alt="webpage menu icon"></div>
+                <div class="value-text">You have the freedom to select the charity of your choice through HopfulHands.
+                </div>
+            </div>
+            <div class="value">
+                <div class="value-number"></div>
+                <div class="value-icon"><img
+                        src="https://www.givewell.org/themes/gw_basic/images/new-homepage/paper-plane.svg"
+                        alt="paper plane icon"></div>
+                <div class="value-text">
+HopfulHands ensures that <strong>no fees are deducted</strong> and forwards your donation directly to the program you have selected.
+                </div>
+            </div>
+        </section>
+
+
+        <div class="team-section">
+        <h2>Meet Our Team</h2>
+            <hr>
+        <div class="team-member">
+
+                <img src="{% static 'images/img1.jpg' %}" alt="Team Member 1">
+                <div class="team-member-text">
+                    <h3>Moujahed kassem</h3>
+                    <p>EL PATRON</p>
+                    <p>Front-end dev</p>
+                    <p>شيخ المراجل</p>
+                    <p>STEAK MASTER</p>
+                </div>
+
+                <img src="{% static 'images/img2.jpeg' %}" alt="Team Member 2">
+                <div class="team-member-text">
+                    <h3>Wissam Hawchar</h3>
+                    <p>King of CSS</p>
+                    <p>Back-end dev</p>
+                    <p>el matador del django</p>
+                    <p>admirals of the seven seas</p>
+
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
+
+
+    {% include 'components/footer.html' %}
+{% endblock %}
+</body>
+</html>

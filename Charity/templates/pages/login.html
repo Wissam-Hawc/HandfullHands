@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Form</title>
+
+    <style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+    form {
+        width: 40%;
+        margin-left: 30%;
+    }
+    .custom-container {
+        margin: 0 auto;
+        margin-top: 100px;
+
+    }
+
+    .custom-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #3e8da8;
+    }
+
+    .custom-logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .custom-logo img {
+        width: 180px;
+        cursor: pointer;
+    }
+
+    .custom-form-group {
+        margin-bottom: 15px;
+    }
+
+    .custom-form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .custom-form-group input[type="text"],
+    .custom-form-group input[type="password"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+    }
+
+    .custom-form-group input[type="text"]:focus,
+    .custom-form-group input[type="password"]:focus {
+        border-color: #3e8da8;
+    }
+
+    .custom-form-group button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #3e8da8;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-form-group button:hover {
+        background-color: #236b86;
+    }
+    .custom-footer{
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+        {% include 'components/navbar.html' %}
+        <div class="custom-container">
+            <div class="custom-logo">
+                <a href="/"><img src="/static/images/logo.png" alt="Logo"></a>
+            </div>
+            <h2>Login Form</h2>
+            <form name="loginForm" onsubmit="return validateForm()" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <div class="custom-form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username">
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                </div>
+
+                <div class="custom-form-group">
+                    <button type="submit">Login</button>
+                </div>
+            </form>
+        </div>
+        <div class="custom-footer">
+            {% include 'components/footer.html' %}
+        </div>
+    {% endblock %}
+</body>
+</html>

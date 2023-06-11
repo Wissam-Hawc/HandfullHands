@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+
+    <style>
+        /* CSS styles */
+        .footer {
+            height: 30%;
+            /* Add other styles as needed */
+        }
+
+        /* Add additional CSS styles for other footer elements, such as text, links, etc. */
+    </style>
+</head>
+<body>
+    {% block content %}
+        {% include 'components/navbar.html' %}
+
+        {% include 'components/slider.html' %}
+
+        {% include 'components/cards.html' %}
+
+        {% include 'components/footer.html' %}
+
+    {% endblock %}
+</body>
+</html>
