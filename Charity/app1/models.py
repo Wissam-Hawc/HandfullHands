@@ -4,24 +4,32 @@ from django.db import models
 
 class Profile(models.Model):
     phone = models.CharField(max_length=12, default="", unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE, )
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
 
 
 class GuestUser(models.Model):
     username = models.CharField(max_length=150)
 
+    def __str__(self):
+        return self.username
+
 
 class Donation(models.Model):
     user = models.ForeignKey(User, null=True, blank=True, on_delete=models.CASCADE)
     guest_user = models.ForeignKey(GuestUser, on_delete=models.CASCADE, blank=True, null=True)
-    first_Name = models.CharField(max_length=40)
-    last_Name = models.CharField(max_length=40)
+    full_name = models.CharField(max_length=40)
     email = models.CharField(max_length=50)
     phone = models.CharField(max_length=12, default="")
-    amount = models.DecimalField(max_digits=10, decimal_places=2)
+    amount = models.IntegerField()
     program = models.ForeignKey('Program', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    # payment =
+    stripeid = models.CharField(max_length=100, unique=True)
+
+    def __str__(self):
+        return f"Donation ID: {self.id}, Amount: {self.amount}"
 
 
 class Program(models.Model):
@@ -31,6 +39,13 @@ class Program(models.Model):
     budget = models.IntegerField()
     start_date = models.DateField()
     end_date = models.DateField()
+    raised = models.IntegerField(default=0)
+    program_challenge = models.CharField(max_length=2000, default='Default Value')
+    program_objective = models.CharField(max_length=2000, default='Default Value')
+    program_plan = models.CharField(max_length=2000, default='Default Value')
+
+    def __str__(self):
+        return self.program_name
 
 
 class Content(models.Model):
@@ -49,10 +64,16 @@ class Content(models.Model):
     image = models.ImageField(upload_to='images/', blank=True)
     createdAT = models.DateTimeField(auto_now_add=True)
 
+    def __str__(self):
+        return self.page_name
+
 
 class Contact(models.Model):
     full_name = models.CharField(max_length=50)
-    email = models.CharField(max_length=50, )
-    phone = models.CharField(max_length=12, )
+    email = models.CharField(max_length=50)
+    phone = models.CharField(max_length=12)
     message = models.CharField(max_length=600)
     date = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.full_name

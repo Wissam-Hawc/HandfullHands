@@ -1,17 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
 
-{% block content %}
-  <h2>Registration</h2>
-  {% if error_message %}
-    <p>{{ error_message }}</p>
-  {% endif %}
-  <form method="post">
-    {% csrf_token %}
-    <input type="text" name="username" placeholder="Username" required><br>
-    <input type="text" name="first_name" placeholder="First Name" required><br>
-    <input type="text" name="last_name" placeholder="Last Name" required><br>
-    <input type="email" name="email" placeholder="Email" required><br>
-    <input type="password" name="password" placeholder="Password" required><br>
-    <input type="password" name="confirm_password" placeholder="Confirm Password" required><br>
-    <button type="submit">Register</button>
-  </form>
-{% endblock %}
+    <style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+    form {
+        width: 40%;
+        margin-left: 30%;
+    }
+    .custom-container {
+        margin: 0 auto;
+        margin-top: 100px;
+    }
+
+    .custom-container h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        color: #3e8da8;
+    }
+
+    .custom-logo {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+
+    .custom-logo img {
+        width: 180px;
+        cursor: pointer;
+    }
+
+    .custom-form-group {
+        margin-bottom: 15px;
+    }
+
+    .custom-form-group label {
+        display: block;
+        font-weight: bold;
+        margin-bottom: 5px;
+        color: #333;
+    }
+
+    .custom-form-group input[type="text"],
+    .custom-form-group input[type="password"],
+    .custom-form-group input[type="email"] {
+        width: 100%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 3px;
+        border: 1px solid #ccc;
+        transition: border-color 0.3s ease;
+    }
+
+    .custom-form-group input[type="text"]:focus,
+    .custom-form-group input[type="password"]:focus,
+    .custom-form-group input[type="email"]:focus {
+        border-color: #3e8da8;
+    }
+
+    .custom-form-group button {
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        background-color: #3e8da8;
+        color: #fff;
+        border: none;
+        border-radius: 3px;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+
+    .custom-form-group button:hover {
+        background-color: #236b86;
+    }
+    .custom-footer{
+        width: 100%;
+    }
+    </style>
+</head>
+<body>
+    {% block content %}
+        {% include 'components/navbar.html' %}
+        <div class="custom-container">
+            <div class="custom-logo">
+                <a href="/"><img src="/static/images/logo.png" alt="Logo"></a>
+            </div>
+            <h2>Registration Form</h2>
+            <form method="post">
+                {% csrf_token %}
+                <div class="custom-form-group">
+                    <label for="username">Username:</label>
+                    <input type="text" id="username" name="username" placeholder="Enter your username" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="first_name">First Name:</label>
+                    <input type="text" id="first_name" name="first_name" placeholder="Enter your first name" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="last_name">Last Name:</label>
+                    <input type="text" id="last_name" name="last_name" placeholder="Enter your last name" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="email">Email:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <label for="confirm_password">Confirm Password:</label>
+                    <input type="password" id="confirm_password" name="confirm_password" placeholder="Confirm your password" required>
+                </div>
+
+                <div class="custom-form-group">
+                    <button type="submit">Register</button>
+                </div>
+            </form>
+            <p style="text-align: center;">Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+        </div>
+        <div class="custom-footer">
+            {% include 'components/footer.html' %}
+        </div>
+
+    {% endblock %}
+</body>
+</html>

@@ -7,10 +7,10 @@
       display: flex;
       justify-content: space-between;
       margin-bottom: 20px;
-
     }
 
     .charity-card {
+      position: relative; /* Added position relative */
       flex-basis: 24%;
       border-radius: 4px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
@@ -27,9 +27,7 @@
     .charity-card .charity-info {
       padding: 20px;
       background-color: rgba(255, 255, 255, 0.8);
-      height:100% ;
-
-
+      height: 100%;
     }
 
     .charity-card h2 {
@@ -60,6 +58,11 @@
     }
 
     .donate-button {
+      position: absolute; /* Added position absolute */
+      bottom: 10px; /* Adjust the bottom value as needed */
+      left: 0;
+      right: 0;
+      margin: 0 auto;
       display: block;
       width: 100%;
       padding: 10px;
@@ -95,9 +98,9 @@
   {% for program in programs %}
     <div class="charity-card" style="background-image: url('{{ program.program_image.url }}');">
       <div class="charity-info">
-        <h2>{{ program.program_name}}</h2>
+        <h2>{{ program.program_name }}</h2>
         <p>{{ program.program_description }}</p>
-        <a href="#" class="donate-button">Donate Now</a>
+        <a href="{% url 'donate' %}" class="donate-button">Donate Now</a>
       </div>
     </div>
   {% endfor %}

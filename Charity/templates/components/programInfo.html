@@ -4,77 +4,112 @@
   <title>Programs</title>
   <style>
     /* CSS styles for the programs page */
-<!--    body {-->
-<!--      font-family: Arial, sans-serif;-->
-<!--      margin: 0;-->
-<!--      padding: 20px;-->
-<!--    }-->
+
+    body {
+      background-color: #f2f2f2;
+    }
 
     .program-container {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-    }
-
-    .program-card {
-      width: calc(50% - 10px); /* Adjusted width to show 2 programs per line */
-      margin-bottom: 20px;
+      margin: 20px;
+      padding: 30px;
       background-color: #f2f2f2;
-      border-radius: 5px;
-      padding: 20px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
     }
 
-    .program-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+    .program-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .program-item {
+      background-color: #fff;
+      border-radius: 15px;
+      padding: 10px;
+      margin-bottom: 20px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      color: #333333;
     }
 
     .program-name {
       font-size: 18px;
       font-weight: bold;
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      flex: 1;
     }
 
     .program-description {
-      margin-bottom: 10px;
+      margin-bottom: 5px;
+      flex: 1;
     }
 
     .program-image {
-      max-width: 100%;
+      max-width: 400px;
       height: auto;
-      margin-bottom: 10px;
+      margin-right: 10px;
+      flex-shrink: 0;
     }
 
     .program-details {
       font-size: 14px;
+      flex: 1;
     }
 
-    @media (max-width: 768px) {
-      .program-card {
-        width: 100%; /* Display one program per line on small screens */
-      }
+    .details-button,
+    .donate-button {
+      display: inline-block;
+      background-color: #f2f2f2;
+      color: #333333;
+      padding: 8px 16px;
+      border-radius: 3px;
+      text-decoration: none;
+      transition: box-shadow 0.3s ease;
+      margin-top: 5px;
+      margin-left: 5px;
+    }
+
+    .details-button:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+       color:black;
+      list-style: none;
+      text-decoration: none;
+    }
+
+    .donate-button {
+      background-color: #7DA1C9;
+      color: #fff;
+    }
+
+    .donate-button:hover {
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      color:white;
+      background-color: #6188B4;
+      list-style: none;
+      text-decoration: none;
     }
   </style>
 </head>
 <body>
-
-<div class="program-container">
-  {% for program in programs|slice:":4" %}
-  <div class="program-card">
-    <img class="program-image" src="{{ program.program_image.url }}" alt="Program Image">
-    <div class="program-name">{{ program.program_name }}</div>
-    <div class="program-description">{{ program.program_description }}</div>
-    <div class="program-details">
-      <p><strong>Budget:</strong> ${{ program.budget }}</p>
-      <p><strong>Start Date:</strong> {{ program.start_date }}</p>
-      <p><strong>End Date:</strong> {{ program.end_date }}</p>
-      <p><strong>Goal:</strong> {{ program.goal }}</p>
-    </div>
-  </div>
-  {% endfor %}
-
+  <div class="program-container">
+    <ul class="program-list">
+      {% for program in programs|slice:":4" %}
+        <li class="program-item">
+          <img class="program-image" src="{{ program.program_image.url }}" alt="Program Image">
+          <div class="program-details">
+            <div class="program-name">{{ program.program_name }}</div>
+            <div class="program-description">{{ program.program_description }}</div>
+            <p><strong>Budget:</strong> ${{ program.budget }}</p>
+            <p><strong>Start Date:</strong> {{ program.start_date }}</p>
+            <p><strong>End Date:</strong> {{ program.end_date }}</p>
+             <p><strong>Raised:</strong> {{ program.raised }}$ out of {{ program.budget }}$</p>
+          </div>
+          <div>
+            <a href="{% url 'program_details' program_id=program.id %}" class="details-button">Details</a>
+            <a href="{% url 'donate' %}" class="donate-button">Donate Now</a>
+          </div>
+        </li>
+      {% endfor %}
+    </ul>
   </div>
 </body>
 </html>

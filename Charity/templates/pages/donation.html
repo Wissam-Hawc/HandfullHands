@@ -1,32 +1,62 @@
 {% load static %}
 
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <script src="https://js.stripe.com/v3/"></script>
+    <title>Donate to HopeFullHands</title>
     <link rel="stylesheet" href="{% static 'main/bootstrap/css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'main/fonts/fontawesome-all.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/font-awesome.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/ionicons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Footer-Dark.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Navigation-with-Search.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/material-icons.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/fonts/fontawesome5-overrides.min.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/search_popup.css' %}">
-    <link rel="stylesheet" href="{% static 'main/css/Contact-Form-Clean.css' %}">
     <link rel="stylesheet" href="{% static 'main/css/styles.min.css' %}">
     <style>
-        /* CSS styles */
-        .footer {
-            height: 30%;
-            /* Add other styles as needed */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
 
-        /* Add additional CSS styles for other footer elements, such as text, links, etc. */
+        .contact-clean {
+            margin-top: 15px;
+            padding-bottom: 15px;
+        }
+
+        .contact-clean h3 {
+            text-align: center;
+            color: #343a40;
+            margin-bottom: 15px;
+        }
+
+        .contact-clean form {
+            width: 50%;
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        .contact-clean .form-group {
+            margin-bottom: 10px;
+        }
+
+        .contact-clean .form-control {
+            border-radius: 3px;
+        }
+
+        .contact-clean label {
+            font-weight: bold;
+        }
+
+        .contact-clean #card-element {
+            margin-top: 5px;
+        }
+
+        .contact-clean #card-errors {
+            color: #fa755a;
+            margin-top: 5px;
+        }
+
+        .contact-clean .btn-primary {
+            width: 100%;
+        }
     </style>
 </head>
 <body>
@@ -34,21 +64,32 @@
         {% include 'components/navbar.html' %}
 
         <div class="contact-clean">
-            <h3 class="text-center text-dark">Donate to HopeFullHands?</h3>
-            <form action="{% url 'donate' %}" style="width:100%; max-width:100%;" method="post" id="payment-form">
+            <h3 class="text-center text-dark">Donate to HopeFullHands</h3>
+            <form action="{% url 'donate' %}" method="post" id="payment-form">
                 {% csrf_token %}
-                <div class="form-group"><input class="form-control" type="text" name="full_name" placeholder="Full name"></div>
-
-                <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
-                <div class="form-group"><input class="form-control" type="text" name="number" placeholder="Phone Number"></div>
                 <div class="form-group">
-                    <select class="form-control" name="program">
+                    <input class="form-control" type="text" name="full_name" placeholder="Full name" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="email" name="email" placeholder="Email" required>
+                </div>
+
+                <div class="form-group">
+                    <input class="form-control" type="text" name="number" placeholder="Phone Number" required>
+                </div>
+
+                <div class="form-group">
+                    <select class="form-control" name="program" required>
                         {% for program in programs %}
-                        <option value="{{ program.program_name }}">{{ program.program_name }}</option>
+                            <option value="{{ program.program_name }}">{{ program.program_name }}</option>
                         {% endfor %}
                     </select>
                 </div>
-                <div class="form-group"><input class="form-control" type="number" name="amount" id="amount" placeholder="Amount"></div>
+
+                <div class="form-group">
+                    <input class="form-control" type="number" name="amount" id="amount" placeholder="Amount" required>
+                </div>
 
                 <div>
                     <label for="card-element">
@@ -71,6 +112,7 @@
         {% include 'components/footer.html' %}
     {% endblock %}
 
+    <script src="https://js.stripe.com/v3/"></script>
     <script>
         // Create a Stripe client.
         var stripe = Stripe('pk_test_51NFCLcL1DjYxHgevjScJaihOQIZ6LtDpRjGFwVkDBSDyawgtdA26OI5cBE193wAYo2c2PGEClXeYAbfrzWetoZFk009GPPEXiF');

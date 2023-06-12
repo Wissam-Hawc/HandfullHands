@@ -2,8 +2,9 @@ import stripe
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Sum, F
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Content, Program, Contact, Donation, GuestUser
 
 
@@ -47,11 +48,6 @@ def contact(request):
             return render(request, 'pages/contact.html')  # Render the form page with an error message
     else:
         return render(request, 'pages/contact.html')  # Render the initial form page
-
-
-def details(request):
-    # view logic goes here
-    return render(request, 'pages/details.html')
 
 
 def login_view(request):
@@ -166,13 +162,14 @@ def stripePay(request):
         donation = Donation.objects.create(
             user=request.user if request.user.is_authenticated else None,
             guest_user=None if request.user.is_authenticated else GuestUser.objects.create(username='guest'),
-            first_Name=full_name,
-            last_Name="",
+            full_name=full_name,
             email=email,
             phone=phone_number,
             amount=amount,
-            program=program
+            program=program,
+            stripeid=charge["id"]
         )
+        Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
         request.session['donation_success'] = True
 
@@ -181,3 +178,20 @@ def stripePay(request):
     # Retrieve the program names and pass them to the template context
 
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
+
+
+def calculate_progress(raised, budget):
+    if budget == 0:
+        return 0
+    return (raised / budget) * 100
+
+
+def program_details(request, program_id):
+    program = get_object_or_404(Program, id=program_id)
+    progress = calculate_progress(program.raised, program.budget)
+
+    context = {
+        'program': program,
+        'progress': progress,
+    }
+    return render(request, 'pages/program_details.html', context)

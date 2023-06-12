@@ -27,7 +27,8 @@
             height: 100vh;
             display: flex;
             align-items: center;
-            background-size: cover; /* Added background-size property */
+            background-size: cover;
+<!--            filter: grayscale(50%);-->
         }
 
         .slide img {
@@ -124,9 +125,10 @@
         </div>
 
         <div class="fixed-info">
-            <h1 class="title">Hopfulhands</h1>
+            <h1 class="title">Hopfullhands</h1>
             <p class="desc">Bringing Hope, Changing Lives</p>
-            <button class="button">Start with a little</button>
+            <a href="{% url 'donate' %}"><button class="button">Start with a little</button> </a>
+
         </div>
     </div>
 
