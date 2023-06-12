@@ -14,5 +14,7 @@ urlpatterns = [
     path('details/', details, name='details'),
     path('register/', register, name='register'),
     path('donate/', stripePay, name='donate'),
+    path('programs/<int:program_id>/', views.program_details, name='program_details'),
+    path('register/', views.register, name='register'),
 
 ]

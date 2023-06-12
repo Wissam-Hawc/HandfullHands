@@ -2,8 +2,9 @@ import stripe
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.db.models import Sum
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .models import Content, Program, Contact, Donation, GuestUser
 
 
@@ -181,3 +182,22 @@ def stripePay(request):
     # Retrieve the program names and pass them to the template context
 
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
+
+
+def calculate_progress(raised, budget):
+    if budget == 0:
+        return 0
+    return (raised / budget) * 100
+
+
+def program_details(request, program_id):
+    program = get_object_or_404(Program, id=program_id)
+    progress = calculate_progress(program.raised, program.budget)
+
+    context = {
+        'program': program,
+        'progress': progress,
+    }
+    return render(request, 'pages/program_details.html', context)
+
+

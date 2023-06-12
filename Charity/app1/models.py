@@ -31,6 +31,10 @@ class Program(models.Model):
     budget = models.IntegerField()
     start_date = models.DateField()
     end_date = models.DateField()
+    raised = models.IntegerField(default=0)
+    program_challenge = models.CharField(max_length=2000, default='Default Value')
+    program_objective = models.CharField(max_length=2000, default='Default Value')
+    program_plan = models.CharField(max_length=2000, default='Default Value')
 
 
 class Content(models.Model):
@@ -56,3 +60,4 @@ class Contact(models.Model):
     phone = models.CharField(max_length=12, )
     message = models.CharField(max_length=600)
     date = models.DateTimeField(auto_now_add=True)
+
