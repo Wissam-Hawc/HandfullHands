@@ -81,37 +81,52 @@
     .custom-footer{
         width: 100%;
     }
+
     </style>
 </head>
 <body>
-    {% block content %}
-        {% include 'components/navbar.html' %}
-        <div class="custom-container">
-            <div class="custom-logo">
-                <a href="/"><img src="/static/images/logo.png" alt="Logo"></a>
-            </div>
-            <h2>Login Form</h2>
-            <form name="loginForm" onsubmit="return validateForm()" method="POST" action="{% url 'login' %}">
-                {% csrf_token %}
-                <div class="custom-form-group">
-                    <label for="username">Username:</label>
-                    <input type="text" id="username" name="username" placeholder="Enter your username">
-                </div>
+{% block content %}
+{% if request.session.login_failed %}
+<div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
+    Incorrect username or password.Please try again.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeDonationSuccess()">
+        <span aria-hidden="true">&times;</span>
+    </button>
+</div>
+<script>
+    function closeDonationSuccess() {
+        document.getElementById("donation-success").style.display = "none";
+    }
 
-                <div class="custom-form-group">
-                    <label for="password">Password:</label>
-                    <input type="password" id="password" name="password" placeholder="Enter your password">
-                </div>
+</script>
+{% endif %}
+{% include 'components/navbar.html' %}
+<div class="custom-container">
+    <div class="custom-logo">
+        <a href="/"><img src="/static/images/logo.png" alt="Logo"></a>
+    </div>
+    <h2>Login Form</h2>
+    <form name="loginForm" onsubmit="return validateForm()" method="POST" action="{% url 'login' %}">
+        {% csrf_token %}
+        <div class="custom-form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" name="username" placeholder="Enter your username">
+        </div>
 
-                <div class="custom-form-group">
-                    <button type="submit">Login</button>
-                </div>
-            </form>
+        <div class="custom-form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" placeholder="Enter your password">
         </div>
-    <p style="text-align: center;">Don't have an account? <a href="{% url 'register' %}">Sign up now</a></p>
-        <div class="custom-footer">
-            {% include 'components/footer.html' %}
+
+        <div class="custom-form-group">
+            <button type="submit">Login</button>
         </div>
-    {% endblock %}
+    </form>
+</div>
+<p style="text-align: center;">Don't have an account? <a href="{% url 'register' %}">Sign up now</a></p>
+<div class="custom-footer">
+    {% include 'components/footer.html' %}
+</div>
+{% endblock %}
 </body>
 </html>

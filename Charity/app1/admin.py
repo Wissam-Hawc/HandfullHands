@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile, Donation, Program, Content, Contact
+from .models import Profile, Donation, Program, Content, Contact, GuestUser
 
 
 class ProfileAdmin(admin.ModelAdmin):
@@ -7,7 +7,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class DonationAdmin(admin.ModelAdmin):
-    list_display = ('guest_user','user', 'full_name', 'email', 'phone', 'date', 'amount', 'program')
+    list_display = ('guest_user', 'user', 'full_name', 'email', 'phone', 'date', 'amount', 'program')
 
 
 class ProgramAdmin(admin.ModelAdmin):
@@ -22,6 +22,11 @@ class ContactAdmin(admin.ModelAdmin):
     list_display = ('full_name', 'email', 'phone', 'date')
 
 
+class GuestUserAdmin(admin.ModelAdmin):
+    list_display = ['id', 'username']
+
+
+admin.site.register(GuestUser, GuestUserAdmin)
 admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(Program, ProgramAdmin)

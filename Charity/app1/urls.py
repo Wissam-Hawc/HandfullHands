@@ -1,18 +1,17 @@
 # app1/urls.py
 
-from django.urls import path
+from django.urls import path, re_path
 from .views import contact, about, programs, login_view, logout_user, register, stripePay, home, program_details
 
 urlpatterns = [
     path('', home, name='home'),
-    path('programs/', programs, name='programs'),
-    path('about/', about, name='about'),
-    path('contact/', contact, name='contact'),
-    path('login/', login_view, name='login'),
-    path('logout_user', logout_user, name='logout'),
-    path('register/', register, name='register'),
-    path('donate/', stripePay, name='donate'),
-    path('programs/<int:program_id>/',program_details, name='program_details'),
-    path('register/', register, name='register'),
+    re_path(r'^.*programs/$', programs, name='programs'),
+    re_path(r'^.*about/$', about, name='about'),
+    re_path(r'^.*contact/$', contact, name='contact'),
+    re_path(r'^.*login/$', login_view, name='login'),
+    re_path(r'^.*logout_user/$', logout_user, name='logout'),
+    re_path(r'^.*register/$', register, name='register'),
+    re_path(r'^.*donate/$', stripePay, name='donate'),
+    re_path(r'^.*programs/(?P<program_id>\d+)/$', program_details, name='program_details'),
 
 ]

@@ -55,12 +55,11 @@ class Content(models.Model):
         ('home-slider1', 'Home Slider 1'),
         ('home-slider2', 'Home Slider 2'),
         ('home-slider3', 'Home Slider 3'),
-        ('home-slider4', 'Home Slider 4'),
     ]
 
     page_name = models.CharField(max_length=40, choices=PAGE_CHOICES, unique=True)
-    title = models.CharField(max_length=40)
-    description = models.CharField(max_length=200)
+    title = models.CharField(max_length=40, blank=True)
+    description = models.CharField(max_length=200, blank=True)
     image = models.ImageField(upload_to='images/', blank=True)
     createdAT = models.DateTimeField(auto_now_add=True)
 

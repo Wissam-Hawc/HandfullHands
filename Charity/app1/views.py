@@ -65,6 +65,8 @@ def login_view(request):
             if user.is_active:
                 login(request, user)
                 return redirect('home')  # Redirect to the home page after successful login
+        else:
+            request.session['login_failed'] = True
 
     return render(request, 'pages/login.html')
 
