@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Slider</title>
     <style>
         /* CSS styles */
@@ -28,7 +28,8 @@
             display: flex;
             align-items: center;
             background-size: cover;
-<!--            filter: grayscale(50%);-->
+            filter: brightness(0.5);
+
         }
 
         .slide img {
@@ -112,27 +113,30 @@
                 font-size: 14px;
             }
         }
+
     </style>
 </head>
 
 <body style="width:100%;">
-    {% load static %}
-    <div class="container1">
-        <div class="wrapper" id="wrapper">
-            <div class="slide" style="background-image: url({% static 'images/Cover.jpg' %});"></div>
-            <div class="slide" style="background-image: url({% static 'images/aaaa.jpg' %});"></div>
-            <div class="slide" style="background-image: url({% static 'images/img.jpg' %});"></div>
-        </div>
-
-        <div class="fixed-info">
-            <h1 class="title">Hopfullhands</h1>
-            <p class="desc">Bringing Hope, Changing Lives</p>
-            <a href="{% url 'donate' %}"><button class="button">Start with a little</button> </a>
-
-        </div>
+{% load static %}
+<div class="container1">
+    <div class="wrapper" id="wrapper">
+        <div class="slide" style="background-image: url({% static 'images/Cover.jpg' %});"></div>
+        <div class="slide" style="background-image: url({% static 'images/aaaa.jpg' %});"></div>
+        <div class="slide" style="background-image: url({% static 'images/img.jpg' %});"></div>
     </div>
 
-    <script>
+    <div class="fixed-info">
+        <h1 class="title">Hopfullhands</h1>
+        <p class="desc">Bringing Hope, Changing Lives</p>
+        <a href="{% url 'donate' %}">
+            <button class="button">Start with a little</button>
+        </a>
+
+    </div>
+</div>
+
+<script>
         const wrapper = document.getElementById('wrapper');
         const slides = document.getElementsByClassName('slide');
         let slideIndex = 0;
@@ -158,7 +162,8 @@
         // Initially show the first slide
         showSlide(slideIndex);
 
-    </script>
+
+</script>
 </body>
 
 </html>

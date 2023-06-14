@@ -1,4 +1,3 @@
-import stripe
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -8,8 +7,8 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
 from .models import Content, Program, Contact, Donation, GuestUser, ChartData
+import stripe
 
 
 def home(request):
