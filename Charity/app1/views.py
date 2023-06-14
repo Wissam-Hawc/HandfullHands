@@ -9,7 +9,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
-from .models import Content, Program, Contact, Donation, GuestUser
+from .models import Content, Program, Contact, Donation, GuestUser, ChartData
 
 
 def home(request):
@@ -140,13 +140,10 @@ def stripePay(request):
                 source=request.POST['stripeToken']
             )
         except stripe.error.CardError as e:
-            print(e)
             return HttpResponse("<h1>There was an error charging your card:</h1>" + str(e))
         except stripe.error.RateLimitError as e:
-            print(e)
             return HttpResponse("<h1>Rate error!</h1>")
         except stripe.error.AuthenticationError as e:
-            print(e)
             return HttpResponse("<h1>Invalid API auth!</h1>")
         except stripe.error.StripeError as e:
             print(e)
@@ -154,7 +151,6 @@ def stripePay(request):
             # request.session.set_expiry(1)
             return redirect("donate")
         except stripe.error.InvalidRequestError as e:
-            print(e)
             return HttpResponse("<h1>Invalid requestor!</h1>")
         except Exception as e:
             pass
@@ -184,7 +180,7 @@ def stripePay(request):
         Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
         subject = 'Thank You for Your Donation'
-        template = 'pages/email_donation'
+        template = 'pages/email_donation.html'
         context = {'full_name': full_name, 'amount': amount}
         message = render_to_string(template, context)
         plain_message = strip_tags(message)
@@ -215,3 +211,12 @@ def program_details(request, program_id):
         'progress': progress,
     }
     return render(request, 'pages/program_details.html', context)
+
+
+def chart_view(request):
+    # Retrieve the chart data from the database
+    chart_data = ChartData.objects.all()
+
+    # Pass the chart data to the template
+    context = {'chart_data': chart_data}
+    return render(request, 'components/statistics.html', context)

@@ -1,6 +1,8 @@
 # app1/urls.py
 
 from django.urls import path, re_path
+
+from . import views
 from .views import contact, about, programs, login_view, logout_user, register, stripePay, home, program_details
 
 urlpatterns = [
@@ -13,5 +15,6 @@ urlpatterns = [
     re_path(r'^.*register/$', register, name='register'),
     re_path(r'^.*donate/$', stripePay, name='donate'),
     re_path(r'^.*programs/(?P<program_id>\d+)/$', program_details, name='program_details'),
+    path('charts/', views.chart_view, name='chart_view'),
 
 ]
