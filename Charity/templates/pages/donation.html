@@ -61,9 +61,11 @@
 </head>
 <body>
 {% block content %}
-{% if request.session.invalid_email %}
+{% if messages %}
 <div class="alert alert-danger alert-dismissible fade show" role="alert" id="error_alert">
-    Invalid Email. Please try again.
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
     <button aria-label="Close" class="close" data-dismiss="alert" onclick="closeErrorAlert()" type="button">
         <span aria-hidden="true">&times;</span>
     </button>

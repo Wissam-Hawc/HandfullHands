@@ -22,32 +22,32 @@
 </head>
 <body>
 {% block content %}
-{% if donation_success %}
-<div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
-    Thank you for your donation! We appreciate your support.
-    <button type="button" class="close" data-dismiss="alert"  aria-label="Close" onclick="closeDonationSuccess()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
+{% if messages %}
+    {% for message in messages %}
+        {% if 'registration_success' in message.tags %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert('registration-success')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% elif 'donation_success' in message.tags %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert('donation-success')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+
 <script>
-    function closeDonationSuccess() {
-        document.getElementById("donation-success").style.display = "none";
+    function closeAlert(alertId) {
+        document.getElementById(alertId).style.display = "none";
     }
 </script>
-{% endif %}
-{% if registration_success %}
-<div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success">
-    Thank you for registering!
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeRegistrationSuccess()">
-        <span aria-hidden="true">&times;</span>
-    </button>
-</div>
-<script>
-    function closeRegistrationSuccess() {
-        document.getElementById("registration-success").style.display = "none";
-    }
-</script>
-{% endif %}
+
 {% include 'components/navbar.html' %}
 
 {% include 'components/slider.html' %}

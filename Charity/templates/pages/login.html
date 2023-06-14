@@ -86,9 +86,11 @@
 </head>
 <body>
 {% block content %}
-{% if request.session.login_failed %}
+{% if messages %}
 <div class="alert alert-danger alert-dismissible fade show" role="alert" id="login-error">
-    Incorrect username or password. Please try again.
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeLoginError()">
         <span aria-hidden="true">&times;</span>
     </button>
@@ -99,6 +101,7 @@
     }
 </script>
 {% endif %}
+
 
 {% include 'components/navbar.html' %}
 <div class="custom-container">

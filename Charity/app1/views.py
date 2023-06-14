@@ -70,7 +70,7 @@ def login_view(request):
                 login(request, user)
                 return redirect('home')  # Redirect to the home page after successful login
         else:
-            request.session['login_failed'] = True
+            messages.error(request, 'Incorrect username or password. Please try again.')
 
     return render(request, 'pages/login.html')
 
@@ -111,8 +111,7 @@ def register(request):
         user.email = email
         user.save()
 
-        # Set a success message
-        # request.session['registration_success'] = True
+        messages.success(request, 'Registration successful! You can now log in.', extra_tags='registration_success')
 
         return redirect('home')  # Redirect to home page
 
@@ -147,8 +146,7 @@ def stripePay(request):
             return HttpResponse("<h1>Invalid API auth!</h1>")
         except stripe.error.StripeError as e:
             print(e)
-            # request.session['invalid_email'] = True
-            # request.session.set_expiry(1)
+            messages.error(request, 'Invalid email or an error occurred with the payment. Please try again.')
             return redirect("donate")
         except stripe.error.InvalidRequestError as e:
             return HttpResponse("<h1>Invalid requestor!</h1>")
@@ -187,7 +185,8 @@ def stripePay(request):
         recipient_list = [email]
         send_mail(subject, plain_message, 'handfullhandswm@gmail.com', recipient_list, html_message=message)
 
-        # request.session['donation_success'] = True
+        messages.success(request, 'Donation successful! Thank you for your contribution.',
+                         extra_tags='donation_success')
 
         return redirect('home')
 
