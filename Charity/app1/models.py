@@ -76,3 +76,9 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.full_name
+
+
+class ChartData(models.Model):
+    chart_name = models.CharField(max_length=100)
+    target_number = models.IntegerField()
+    total_population = models.IntegerField()

@@ -1,59 +1,245 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Charity Program Statistics</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Include the necessary libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
-    .statistics-container {
-      display: flex;
-      justify-content: space-between;
+    .container444 {
+      color: #3e8da8;
+      display: inline-block;
+      margin-left: -12px;
+      margin-right: 40px;
+      margin-bottom: 20px;
+      text-align: center;
+      width: 32%;
+      border: 1px solid #3e8da8;
+      padding: 10px;
+    }
+
+    .container444 .chart444 {
       margin-bottom: 20px;
     }
 
-    .statistics-card {
-      flex-basis: 30%;
-      border-radius: 4px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-      background-color: #fff;
-      padding: 20px;
-      text-align: center;
-    }
-
-    .statistics-card h2 {
-      font-size: 18px;
-      margin-bottom: 10px;
-      color: #333;
-    }
-
-    .statistics-card p {
-      margin-bottom: 10px;
-      color: #666;
-    }
-
-    .statistics-chart {
+    .container444 .chart444 canvas {
       width: 100%;
-      height: 200px;
-      background-color: #f5f5f5;
-      margin-top: 20px;
+      height: auto;
+      max-height: 300px;
+    }
+
+    .row444 {
+      white-space: nowrap;
+      border-top: 4px solid #3e8da8;
+      width: 75%;
+      margin: 0 auto;
+      padding-top: 20px;
+    }
+
+    @media screen and (max-width: 600px) {
+      .container444 {
+        width: 100%;
+        margin-bottom: 20px;
+      }
+
+      .container444 .chart444 canvas {
+        max-height: 200px;
+      }
+
+      .row444 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
     }
   </style>
 </head>
 <body>
-<div class="statistics-container">
-  <div class="statistics-card">
-    <h2>Total Programs</h2>
-    <p>50 Programs</p>
-    <div class="statistics-chart"></div>
+  <div class="row444">
+    <div class="container444">
+      <div class="chart444">
+        <h2>Kids Outside School</h2>
+        <canvas id="kids-chart444"></canvas>
+      </div>
+      <div class="chart444">
+        <h2>Kids Percentage</h2>
+        <canvas id="kids-percentage444"></canvas>
+      </div>
+    </div>
+    <div class="container444">
+      <div class="chart444">
+        <h2>Homeless People</h2>
+        <canvas id="homeless-chart444"></canvas>
+      </div>
+      <div class="chart444">
+        <h2>Homeless Percentage</h2>
+        <canvas id="homeless-percentage444"></canvas>
+      </div>
+    </div>
+    <div class="container444">
+      <div class="chart444">
+        <h2>Third Chart</h2>
+        <canvas id="third-chart"></canvas>
+      </div>
+      <div class="chart444">
+        <h2>Third Percentage</h2>
+        <canvas id="third-percentage"></canvas>
+      </div>
+    </div>
   </div>
-  <div class="statistics-card">
-    <h2>Total Donations</h2>
-    <p>$100,000</p>
-    <div class="statistics-chart"></div>
-  </div>
-  <div class="statistics-card">
-    <h2>Top Donors</h2>
-    <p>John Doe, Jane Smith, Mark Johnson</p>
-    <div class="statistics-chart"></div>
-  </div>
-</div>
+
+<script>
+  // Sample data for demonstration purposes
+  var kidsData = [1000, 1500, 1200, 2000, 1800];
+  var homelessData = [500, 700, 600, 800, 900];
+
+  // Create the kids chart
+  var kidsChartCanvas = document.getElementById('kids-chart444').getContext('2d');
+  var kidsChart = new Chart(kidsChartCanvas, {
+    type: 'line',
+    data: {
+      labels: ['2017', '2018', '2019', '2020', '2021'],
+      datasets: [{
+        label: 'Kids Outside School',
+        data: kidsData,
+        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+        borderColor: 'rgba(0, 123, 255, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 500
+          }
+        }
+      }
+    }
+  });
+
+  // Create the kids percentage chart
+  var kidsPercentageCanvas = document.getElementById('kids-percentage444').getContext('2d');
+  var kidsPercentageChart = new Chart(kidsPercentageCanvas, {
+    type: 'pie',
+    data: {
+      labels: ['Inside School', 'Outside School'],
+      datasets: [{
+        data: [75, 25],
+        backgroundColor: ['rgba(0, 123, 255, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+        borderColor: ['rgba(0, 123, 255, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+
+  // Create the homeless chart
+  var homelessChartCanvas = document.getElementById('homeless-chart444').getContext('2d');
+  var homelessChart = new Chart(homelessChartCanvas, {
+    type: 'line',
+    data: {
+      labels: ['2017', '2018', '2019', '2020', '2021'],
+      datasets: [{
+        label: 'Homeless People',
+        data: homelessData,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 200
+          }
+        }
+      }
+    }
+  });
+
+  // Create the homeless percentage chart
+  var homelessPercentageCanvas = document.getElementById('homeless-percentage444').getContext('2d');
+  var homelessPercentageChart = new Chart(homelessPercentageCanvas, {
+    type: 'pie',
+    data: {
+      labels: ['Housed', 'Homeless'],
+      datasets: [{
+        data: [80, 20],
+        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
+        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+
+  // Check if the screen width is less than or equal to 600 pixels
+  if (window.innerWidth <= 600) {
+    // Hide the pie chart canvas elements
+    document.getElementById('kids-percentage444').style.display = 'none';
+    document.getElementById('homeless-percentage444').style.display = 'none';
+  }
+
+  // Create the third chart
+  var thirdChartCanvas = document.getElementById('third-chart').getContext('2d');
+  var thirdChart = new Chart(thirdChartCanvas, {
+    type: 'bar',
+    data: {
+      labels: ['Option 1', 'Option 2', 'Option 3'],
+      datasets: [{
+        label: 'Third Chart',
+        data: [50, 75, 100],
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 25
+          }
+        }
+      }
+    }
+  });
+
+  // Create the third percentage chart
+  var thirdPercentageCanvas = document.getElementById('third-percentage').getContext('2d');
+  var thirdPercentageChart = new Chart(thirdPercentageCanvas, {
+    type: 'doughnut',
+    data: {
+      labels: ['Option A', 'Option B', 'Option C'],
+      datasets: [{
+        data: [40, 30, 30],
+        backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(255, 99, 132, 0.5)'],
+        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)'],
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+    }
+  });
+</script>
+
 </body>
 </html>

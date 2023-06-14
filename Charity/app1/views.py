@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.db.models import Sum, F
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
-from .models import Content, Program, Contact, Donation, GuestUser
+from .models import Content, Program, Contact, Donation, GuestUser, ChartData
 
 
 def home(request):
@@ -197,3 +197,11 @@ def program_details(request, program_id):
         'progress': progress,
     }
     return render(request, 'pages/program_details.html', context)
+
+def chart_view(request):
+    # Retrieve the chart data from the database
+    chart_data = ChartData.objects.all()
+
+    # Pass the chart data to the template
+    context = {'chart_data': chart_data}
+    return render(request, 'components/statistics.html', context)

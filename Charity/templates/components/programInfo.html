@@ -10,7 +10,7 @@
     }
 
     .program-container {
-      margin: 20px;
+      margin: 20px 80px;
       padding: 30px;
       background-color: #f2f2f2;
     }
@@ -41,6 +41,7 @@
     .program-description {
       margin-bottom: 5px;
       flex: 1;
+      width: 100%;
     }
 
     .program-image {
@@ -53,6 +54,7 @@
     .program-details {
       font-size: 14px;
       flex: 1;
+      width: 100%;
     }
 
     .details-button,
@@ -70,7 +72,7 @@
 
     .details-button:hover {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-       color:black;
+      color: black;
       list-style: none;
       text-decoration: none;
     }
@@ -82,10 +84,26 @@
 
     .donate-button:hover {
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-      color:white;
+      color: white;
       background-color: #6188B4;
       list-style: none;
       text-decoration: none;
+    }
+
+    @media (max-width: 768px) {
+      .program-container {
+        margin: 20px 0;
+      }
+
+      .program-item {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .program-image {
+        margin-right: 0;
+        margin-bottom: 10px;
+      }
     }
   </style>
 </head>
@@ -101,7 +119,7 @@
             <p><strong>Budget:</strong> ${{ program.budget }}</p>
             <p><strong>Start Date:</strong> {{ program.start_date }}</p>
             <p><strong>End Date:</strong> {{ program.end_date }}</p>
-             <p><strong>Raised:</strong> {{ program.raised }}$ out of {{ program.budget }}$</p>
+            <p><strong>Raised:</strong> {{ program.raised }}$ out of {{ program.budget }}$</p>
           </div>
           <div>
             <a href="{% url 'program_details' program_id=program.id %}" class="details-button">Details</a>
