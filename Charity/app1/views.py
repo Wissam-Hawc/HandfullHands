@@ -2,9 +2,13 @@ import stripe
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
+from django.core.mail import send_mail
 from django.db.models import Sum, F
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
+
 from .models import Content, Program, Contact, Donation, GuestUser
 
 
@@ -108,7 +112,7 @@ def register(request):
         user.save()
 
         # Set a success message
-        request.session['registration_success'] = True
+        # request.session['registration_success'] = True
 
         return redirect('home')  # Redirect to home page
 
@@ -136,15 +140,21 @@ def stripePay(request):
                 source=request.POST['stripeToken']
             )
         except stripe.error.CardError as e:
+            print(e)
             return HttpResponse("<h1>There was an error charging your card:</h1>" + str(e))
         except stripe.error.RateLimitError as e:
+            print(e)
             return HttpResponse("<h1>Rate error!</h1>")
         except stripe.error.AuthenticationError as e:
+            print(e)
             return HttpResponse("<h1>Invalid API auth!</h1>")
         except stripe.error.StripeError as e:
             print(e)
-            return HttpResponse("<h1>Stripe error!</h1>")
+            # request.session['invalid_email'] = True
+            # request.session.set_expiry(1)
+            return redirect("donate")
         except stripe.error.InvalidRequestError as e:
+            print(e)
             return HttpResponse("<h1>Invalid requestor!</h1>")
         except Exception as e:
             pass
@@ -173,7 +183,15 @@ def stripePay(request):
         )
         Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
-        request.session['donation_success'] = True
+        subject = 'Thank You for Your Donation'
+        template = 'pages/email_donation'
+        context = {'full_name': full_name, 'amount': amount}
+        message = render_to_string(template, context)
+        plain_message = strip_tags(message)
+        recipient_list = [email]
+        send_mail(subject, plain_message, 'handfullhandswm@gmail.com', recipient_list, html_message=message)
+
+        # request.session['donation_success'] = True
 
         return redirect('home')
 

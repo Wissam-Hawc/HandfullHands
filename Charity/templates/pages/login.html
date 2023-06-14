@@ -87,19 +87,19 @@
 <body>
 {% block content %}
 {% if request.session.login_failed %}
-<div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
-    Incorrect username or password.Please try again.
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeDonationSuccess()">
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="login-error">
+    Incorrect username or password. Please try again.
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeLoginError()">
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
 <script>
-    function closeDonationSuccess() {
-        document.getElementById("donation-success").style.display = "none";
+    function closeLoginError() {
+        document.getElementById("login-error").style.display = "none";
     }
-
 </script>
 {% endif %}
+
 {% include 'components/navbar.html' %}
 <div class="custom-container">
     <div class="custom-logo">
