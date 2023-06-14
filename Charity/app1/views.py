@@ -218,3 +218,4 @@ def chart_view(request):
     # Pass the chart data to the template
     context = {'chart_data': chart_data}
     return render(request, 'components/statistics.html', context)
+

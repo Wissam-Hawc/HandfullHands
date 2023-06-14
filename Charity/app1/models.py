@@ -34,7 +34,8 @@ class Donation(models.Model):
 
 class Program(models.Model):
     program_name = models.CharField(max_length=40)
-    program_description = models.CharField(max_length=200)
+    program_description = models.CharField(max_length=400)
+    program_summary = models.CharField(max_length=200, default='Default Value')
     program_image = models.ImageField(upload_to='images/')
     budget = models.IntegerField()
     start_date = models.DateField()
