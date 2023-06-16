@@ -207,10 +207,6 @@ def stripePay(request):
                 stripeid=None,
                 status="failed"
             )
-            # Update the model status as needed
-
-        # Retrieve the program names and pass them to the template context
-        return render(request, "pages/donation.html", {"programs": Program.objects.all()})
 
     # Retrieve the program names and pass them to the template context
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
