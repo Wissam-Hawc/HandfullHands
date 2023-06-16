@@ -6,18 +6,17 @@
   <component name="ChangeListManager">
     <list default="true" id="caf7aa4f-6140-44e9-a385-2a5d5354e998" name="Changes" comment="adding some conf for the email">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/app1/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/admin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/app1/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/models.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/app1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/db.sqlite3" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/templates/components/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/cards.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/templates/components/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/navbar.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/templates/components/programInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/programInfo.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/templates/components/slider.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/slider.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/statistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/statistics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/about.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/contact.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/contact.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/templates/pages/donation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/donation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/home.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/login.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/login.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/programs.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/programs.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/register.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/register.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/email_donation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/email_donation.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/program_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/program_details.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

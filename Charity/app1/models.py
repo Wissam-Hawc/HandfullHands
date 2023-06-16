@@ -26,7 +26,8 @@ class Donation(models.Model):
     amount = models.IntegerField()
     program = models.ForeignKey('Program', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    stripeid = models.CharField(max_length=100, unique=True)
+    stripeid = models.CharField(max_length=100, unique=True,null=True)
+    status = models.CharField(max_length=50, default='success')
 
     def __str__(self):
         return f"Donation ID: {self.id}, Amount: {self.amount}"

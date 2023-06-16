@@ -128,6 +128,7 @@ def stripePay(request):
         full_name = request.POST.get("full_name")
         email = request.POST.get("email")
         phone_number = request.POST.get("number")
+        status = "failed"  # Initialize the status as "failed"
 
         # Create customer
         try:
@@ -138,59 +139,80 @@ def stripePay(request):
                 source=request.POST['stripeToken']
             )
         except stripe.error.CardError as e:
-            return HttpResponse("<h1>There was an error charging your card:</h1>" + str(e))
+            messages.error(request, 'There was an error charging your card: {}'.format(str(e)))
         except stripe.error.RateLimitError as e:
-            return HttpResponse("<h1>Rate error!</h1>")
+            messages.error(request, 'Rate error!')
         except stripe.error.AuthenticationError as e:
-            return HttpResponse("<h1>Invalid API auth!</h1>")
+            messages.error(request, 'Invalid API auth!')
         except stripe.error.StripeError as e:
-            print(e)
             messages.error(request, 'Invalid email or an error occurred with the payment. Please try again.')
-            return redirect("donate")
         except stripe.error.InvalidRequestError as e:
-            return HttpResponse("<h1>Invalid requestor!</h1>")
+            messages.error(request, 'Invalid requestor!')
         except Exception as e:
-            pass
+            messages.error(request, 'An error occurred with the payment. Please try again.')
+        else:
+            # Stripe charge
+            try:
+                charge = stripe.Charge.create(
+                    customer=customer,
+                    amount=int(amount) * 100,
+                    currency='usd',
+                    description="Test donation"
+                )
+                transRetrive = stripe.Charge.retrieve(charge["id"])
+                charge.save()  # Uses the same API Key.
 
-        # Stripe charge
-        charge = stripe.Charge.create(
-            customer=customer,
-            amount=int(amount) * 100,
-            currency='usd',
-            description="Test donation"
-        )
-        transRetrive = stripe.Charge.retrieve(charge["id"])
-        charge.save()  # Uses the same API Key.
+                # Save the form data to the Donation model
+                program = Program.objects.get(program_name=program_name)
+                donation = Donation.objects.create(
+                    user=request.user if request.user.is_authenticated else None,
+                    guest_user=None if request.user.is_authenticated else GuestUser.objects.create(username='guest'),
+                    full_name=full_name,
+                    email=email,
+                    phone=phone_number,
+                    amount=amount,
+                    program=program,
+                    stripeid=charge["id"],
+                    status="success"
+                )
+                Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
-        # Save the form data to the Donation model
-        program = Program.objects.get(program_name=program_name)
-        donation = Donation.objects.create(
-            user=request.user if request.user.is_authenticated else None,
-            guest_user=None if request.user.is_authenticated else GuestUser.objects.create(username='guest'),
-            full_name=full_name,
-            email=email,
-            phone=phone_number,
-            amount=amount,
-            program=program,
-            stripeid=charge["id"]
-        )
-        Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
+                subject = 'Thank You for Your Donation'
+                template = 'pages/email_donation.html'
+                context = {'full_name': full_name, 'amount': amount}
+                message = render_to_string(template, context)
+                plain_message = strip_tags(message)
+                recipient_list = [email]
+                send_mail(subject, plain_message, 'hopefullhandswm@gmail.com', recipient_list, html_message=message)
 
-        subject = 'Thank You for Your Donation'
-        template = 'pages/email_donation.html'
-        context = {'full_name': full_name, 'amount': amount}
-        message = render_to_string(template, context)
-        plain_message = strip_tags(message)
-        recipient_list = [email]
-        send_mail(subject, plain_message, 'handfullhandswm@gmail.com', recipient_list, html_message=message)
+                messages.success(request, 'Donation successful! Thank you for your contribution.',
+                                 extra_tags='donation_success')
+                status = "success"
+                # You can update the model status here if needed
 
-        messages.success(request, 'Donation successful! Thank you for your contribution.',
-                         extra_tags='donation_success')
+            except stripe.error.StripeError as e:
+                messages.error(request, 'An error occurred with the payment. Please try again.')
 
-        return redirect('home')
+        # If the status is failed, update the model status
+        if status == "failed":
+            program = Program.objects.get(program_name=program_name)
+            donation = Donation.objects.create(
+                user=request.user if request.user.is_authenticated else None,
+                guest_user=None if request.user.is_authenticated else GuestUser.objects.create(username='guest'),
+                full_name=full_name,
+                email=email,
+                phone=phone_number,
+                amount=amount,
+                program=program,
+                stripeid=None,
+                status="failed"
+            )
+            # Update the model status as needed
+
+        # Retrieve the program names and pass them to the template context
+        return render(request, "pages/donation.html", {"programs": Program.objects.all()})
 
     # Retrieve the program names and pass them to the template context
-
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
 
 
@@ -218,4 +240,3 @@ def chart_view(request):
     # Pass the chart data to the template
     context = {'chart_data': chart_data}
     return render(request, 'components/statistics.html', context)
-

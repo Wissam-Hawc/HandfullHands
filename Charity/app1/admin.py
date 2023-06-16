@@ -7,7 +7,7 @@ class ProfileAdmin(admin.ModelAdmin):
 
 
 class DonationAdmin(admin.ModelAdmin):
-    list_display = ('guest_user', 'user', 'full_name', 'email', 'phone', 'date', 'amount', 'program')
+    list_display = ('guest_user', 'user', 'full_name', 'email', 'phone', 'date', 'amount', 'program','status')
 
 
 class ProgramAdmin(admin.ModelAdmin):
