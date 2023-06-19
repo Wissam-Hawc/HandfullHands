@@ -9,7 +9,7 @@
       color: #3e8da8;
       display: inline-block;
       margin-left: -12px;
-      margin-right: 40px;
+      margin-right: 60px;
       margin-bottom: 20px;
       text-align: center;
       width: 32%;
@@ -39,6 +39,11 @@
       .container444 {
         width: 100%;
         margin-bottom: 20px;
+        margin-left:40px;
+      }
+
+      .container444 h2 {
+        font-size: 16px; /* Adjust the font size as needed */
       }
 
       .container444 .chart444 canvas {
@@ -60,29 +65,17 @@
         <h2>Kids Outside School</h2>
         <canvas id="kids-chart444"></canvas>
       </div>
-      <div class="chart444">
-        <h2>Kids Percentage</h2>
-        <canvas id="kids-percentage444"></canvas>
-      </div>
     </div>
     <div class="container444">
       <div class="chart444">
         <h2>Homeless People</h2>
         <canvas id="homeless-chart444"></canvas>
       </div>
-      <div class="chart444">
-        <h2>Homeless Percentage</h2>
-        <canvas id="homeless-percentage444"></canvas>
-      </div>
     </div>
     <div class="container444">
       <div class="chart444">
-        <h2>Third Chart</h2>
+        <h2>Under the poverty line</h2>
         <canvas id="third-chart"></canvas>
-      </div>
-      <div class="chart444">
-        <h2>Third Percentage</h2>
-        <canvas id="third-percentage"></canvas>
       </div>
     </div>
   </div>
@@ -120,25 +113,6 @@
     }
   });
 
-  // Create the kids percentage chart
-  var kidsPercentageCanvas = document.getElementById('kids-percentage444').getContext('2d');
-  var kidsPercentageChart = new Chart(kidsPercentageCanvas, {
-    type: 'pie',
-    data: {
-      labels: ['Inside School', 'Outside School'],
-      datasets: [{
-        data: [75, 25],
-        backgroundColor: ['rgba(0, 123, 255, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-        borderColor: ['rgba(0, 123, 255, 1)', 'rgba(255, 99, 132, 1)'],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    }
-  });
-
   // Create the homeless chart
   var homelessChartCanvas = document.getElementById('homeless-chart444').getContext('2d');
   var homelessChart = new Chart(homelessChartCanvas, {
@@ -167,40 +141,14 @@
     }
   });
 
-  // Create the homeless percentage chart
-  var homelessPercentageCanvas = document.getElementById('homeless-percentage444').getContext('2d');
-  var homelessPercentageChart = new Chart(homelessPercentageCanvas, {
-    type: 'pie',
-    data: {
-      labels: ['Housed', 'Homeless'],
-      datasets: [{
-        data: [80, 20],
-        backgroundColor: ['rgba(255, 99, 132, 0.5)', 'rgba(54, 162, 235, 0.5)'],
-        borderColor: ['rgba(255, 99, 132, 1)', 'rgba(54, 162, 235, 1)'],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
-    }
-  });
-
-  // Check if the screen width is less than or equal to 600 pixels
-  if (window.innerWidth <= 600) {
-    // Hide the pie chart canvas elements
-    document.getElementById('kids-percentage444').style.display = 'none';
-    document.getElementById('homeless-percentage444').style.display = 'none';
-  }
-
   // Create the third chart
   var thirdChartCanvas = document.getElementById('third-chart').getContext('2d');
   var thirdChart = new Chart(thirdChartCanvas, {
     type: 'bar',
     data: {
-      labels: ['Option 1', 'Option 2', 'Option 3'],
+      labels: ['2020', ' 2021', '2022 '],
       datasets: [{
-        label: 'Third Chart',
+        label: 'Impovrished People',
         data: [50, 75, 100],
         backgroundColor: 'rgba(75, 192, 192, 0.5)',
         borderColor: 'rgba(75, 192, 192, 1)',
@@ -218,25 +166,6 @@
           }
         }
       }
-    }
-  });
-
-  // Create the third percentage chart
-  var thirdPercentageCanvas = document.getElementById('third-percentage').getContext('2d');
-  var thirdPercentageChart = new Chart(thirdPercentageCanvas, {
-    type: 'doughnut',
-    data: {
-      labels: ['Option A', 'Option B', 'Option C'],
-      datasets: [{
-        data: [40, 30, 30],
-        backgroundColor: ['rgba(75, 192, 192, 0.5)', 'rgba(255, 206, 86, 0.5)', 'rgba(255, 99, 132, 0.5)'],
-        borderColor: ['rgba(75, 192, 192, 1)', 'rgba(255, 206, 86, 1)', 'rgba(255, 99, 132, 1)'],
-        borderWidth: 2
-      }]
-    },
-    options: {
-      responsive: true,
-      maintainAspectRatio: false,
     }
   });
 </script>

@@ -2,41 +2,184 @@
 <html>
 <head>
   <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    .container123 {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .program-details strong {
+      display: inline-block;
+      width: 100px;
+      padding-bottom: 10px !important;
+    }
+
     .progress-bar1 {
-      margin-top: 20px;
       width: 100%;
-      height: 20px;
+      height: 10px;
       border-radius: 4px;
-      background-color: white;
+      background-color: #dfe9f3;
       overflow: hidden;
-      border: black solid 1px;
+
     }
 
     .progress-bar-inner1 {
       height: 100%;
       transition: width 0.3s ease;
-      background-color: #7da1c9
-;
+    }
+
+    .progress-bar-inner1.gradient {
+      background: linear-gradient(to right, #7da1c9, #9c6db3);
+    }
+
+    .program-details-donate-button {
+      margin-top: 10px;
+    }
+
+    /* Fixed progress bar style */
+    .fixed-progress-bar {
+      position: fixed;
+      top: 10%;
+      left: 0px;
+      width: 100%;
+      height: 60px;
+      background-color: #dfe9f3;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      z-index: 999;
+      animation: fade-in 0.5s ease;
+    }
+
+    .fixed-progress-bar-inner {
+      height: 10px;
+      width: {{ progress }}%;
+      max-width: 70%;
+      border-radius: 4px;
+      background: linear-gradient(to right, #7da1c9, #9c6db3);
+      transition: width 0.3s ease;
+      animation: progress-width 0.3s ease;
+    }
+
+    /* Animation keyframes */
+    @keyframes fade-in {
+      0% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @keyframes progress-width {
+      0% {
+        width: 0;
+      }
+      100% {
+        width: {{ progress }}%;
+      }
+    }
+
+    .fixed-progress-bar-details {
+      display: flex;
+      align-items: center;
+    }
+
+    .fixed-progress-bar-details strong {
+      margin-right: 10px;
+    }
+
+    /* Show the fixed progress bar on scroll */
+    body.show-fixed-progress-bar .fixed-progress-bar {
+      display: flex;
+    }
+
+    /* Additional modifications */
+    .fixed-progress-bar-details a {
+      margin-left: 10px;
+      font-size: 0.8em;
+    }
+
+    .fixed-progress-bar-details a.program-details-donate-button {
+      padding: 5px 10px;
+    }
+
+    .fixed-progress-bar-details strong:nth-child(3) {
+      margin-right: 20px;
+    }
+
+    .fixed-progress-bar-details span {
+      display: none;
+    }
+
+    /* Additional style for shorter fixed progress bar */
+    .fixed-progress-bar-inner.shorter {
+      width: calc({{ progress }}% - 25%);
+    }
+
+    /* Show the fixed progress bar on scroll */
+    body.show-fixed-progress-bar .fixed-progress-bar.shorter {
+      display: flex;
     }
   </style>
 </head>
 <body>
-  <h1>Program Details</h1>
-      <p><strong>Start Date:</strong> {{ program.start_date }}</p>
-      <p><strong>End Date:</strong> {{ program.end_date }}</p>
-      <p><strong>Raised:</strong> {{ program.raised }}$ out of {{ program.budget }}$</p>
+  <div class="container123">
+    <div class="progress-bar1">
+      <div class="progress-bar-inner1 gradient" style="width: {{ progress }}%;"></div>
+    </div>
 
-  <div class="progress-bar1">
-    <div class="progress-bar-inner1" style="width: {{ progress }}%;"></div>
+    <div class="program-details" style="font-size: 2em;">
+      <strong>{{ program.raised }}$</strong>
+    </div>
+
+    <div class="program-details">
+      funded of {{ program.budget }}$
+    </div>
+
+    <div class="program-details">
+      <strong>End Date: </strong>{{ program.end_date }}
+    </div>
+    <a class="program-details-donate-button" href="{% url 'donate' %}">Lend Your Hand</a>
+
+  </div>
+
+  <div class="fixed-progress-bar">
+    <div class="fixed-progress-bar-inner shorter gradient" style="width: {{ progress }}%;"></div>
+    <div class="fixed-progress-bar-details">
+      <strong>{{ program.raised }}$</strong>
+      <strong>funded of {{ program.budget }}$</strong>
+      <a href="#" class="program-details-donate-button">Lend Your Hand</a>
+    </div>
   </div>
 
   <script>
     // Get the progress value from the server-side or Django template
     var progress = {{ progress }};
 
-    // Set the width of the progress bar based on the progress value
-    var progressBar = document.querySelector('.progress-bar-inner');
+    // Set the width and gradient of the progress bar based on the progress value
+    var progressBar = document.querySelector('.progress-bar-inner1');
     progressBar.style.width = progress + '%';
+    progressBar.classList.add('gradient');
+
+    // Show the fixed progress bar on scroll
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var body = document.body;
+
+      if (scrollTop > 0) {
+        body.classList.add('show-fixed-progress-bar');
+      } else {
+        body.classList.remove('show-fixed-progress-bar');
+      }
+    });
   </script>
 </body>
 </html>

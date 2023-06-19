@@ -10,6 +10,7 @@
     }
 
     .program-container {
+    margin-top:80px !important;
       margin: 20px 80px;
       padding: 30px;
       background-color: #f2f2f2;
@@ -103,6 +104,11 @@
       .program-image {
         margin-right: 0;
         margin-bottom: 10px;
+        max-width: 100%; /* Set the maximum width to 100% */
+      }
+
+      .program-description {
+        width: 100%; /* Set the width to 100% */
       }
     }
   </style>
@@ -125,6 +131,7 @@
             <a href="{% url 'program_details' program_id=program.id %}" class="details-button">Details</a>
             <a href="{% url 'donate' %}" class="donate-button">Lend Your Hand</a>
           </div>
+
         </li>
       {% endfor %}
     </ul>

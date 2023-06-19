@@ -1,5 +1,6 @@
-from asgiref.sync import async_to_sync
-from channels.layers import get_channel_layer
+# from asgiref.sync import async_to_sync
+# from channels.layers import get_channel_layer
+import openai
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -8,7 +9,9 @@ from django.db.models import Sum, F
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from .models import Content, Program, Contact, Donation, GuestUser, ChartData
+from openai import api_key
+import openai, os
+from .models import Content, Program, Contact, Donation, GuestUser
 import stripe
 
 
@@ -26,6 +29,10 @@ def programs(request):
     programs = Program.objects.all()
     context = {'programs': programs}
     return render(request, 'pages/programs.html', context)
+
+
+def whyHopfullhand(request):
+    return render(request, 'pages/why.html')
 
 
 def about(request):
@@ -175,13 +182,13 @@ def stripePay(request):
                 )
                 Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
-                # subject = 'Thank You for Your Donation'
-                # template = 'pages/email_donation.html'
-                # context = {'full_name': full_name, 'amount': amount}
-                # message = render_to_string(template, context)
-                # plain_message = strip_tags(message)
-                # recipient_list = [email]
-                # send_mail(subject, plain_message, 'hopefullhandswm@gmail.com', recipient_list, html_message=message)
+                subject = 'Thank You for Your Donation'
+                template = 'pages/email_donation.html'
+                context = {'full_name': full_name, 'amount': amount}
+                message = render_to_string(template, context)
+                plain_message = strip_tags(message)
+                recipient_list = [email]
+                send_mail(subject, plain_message, 'hopefullhandswm@gmail.com', recipient_list, html_message=message)
 
                 messages.success(request, 'Donation successful! Thank you for your contribution.',
                                  extra_tags='donation_success')
@@ -205,17 +212,17 @@ def stripePay(request):
                 stripeid=None,
                 status="failed"
             )
-        else:
-            channel_layer = get_channel_layer()
-            async_to_sync(channel_layer.group_send)(
-                "donation_notifications",
-                {
-                    "type": "donation_notification",
-                    "message": f"😮New donation: {amount}$ by {full_name}😮",
-                },
-            )
-            # Redirect to the home page if the payment is successful
-            return redirect('home')
+        # else:
+        #     channel_layer = get_channel_layer()
+        #     async_to_sync(channel_layer.group_send)(
+        #         "donation_notifications",
+        #         {
+        #             "type": "donation_notification",
+        #             "message": f"😮New donation: {amount}$ by {full_name}😮",
+        #         },
+        #     )
+        #     # Redirect to the home page if the payment is successful
+        #     return redirect('home')
 
     # Retrieve the program names and pass them to the template context
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
@@ -227,22 +234,76 @@ def calculate_progress(raised, budget):
     return (raised / budget) * 100
 
 
+
+import re
+
+def generate_projection(objective):
+    keyword_map = {
+        'improve literacy rates': [r'\b(literacy rate|literacy rates|reading skills)\b', r'\b(improve|enhance)\b'],
+        'underprivileged communities': [r'\b(underprivileged communities|disadvantaged areas)\b', r'\b(support|empower)\b'],
+        'access to quality education': [r'\b(access to|quality education)\b', r'\b(provide|ensure)\b'],
+        'digital literacy': [r'\b(digital literacy)\b', r'\b(promote|develop)\b'],
+        '20%': [r'\b(20 percent|twenty percent)\b', r'\b(achieve|attain)\b']
+    }
+
+    projection = ""
+
+    for key, keywords in keyword_map.items():
+        if all(re.search(keyword, objective, re.IGNORECASE) for keyword in keywords):
+            projection += key + ", "
+
+    if projection:
+        projection = projection[:-2]  # Remove trailing comma and space
+        projection += "."
+
+    return projection
+
+
+
+api_key = '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'
+
+
+def chatbot(request, program_id=None):
+    if api_key is not None:
+        openai.api_key = api_key
+
+        program = Program.objects.get(id=program_id)
+
+        prompt = program.program_objective
+
+        try:
+            response = openai.Completion.create(
+                engine='text-davinci-003',
+                prompt=prompt,
+                max_tokens=1000,  # Increase the max_tokens value to generate a longer text
+                temperature=0.5,
+            )
+            bot_response = response.choices[0].text.strip()
+
+            program.chatbot_response = bot_response
+            program.save()
+
+            print(response)
+
+        except openai.error.RateLimitError:
+            bot_response = "Rate limit exceeded. Please try again later."
+
+            program.chatbot_response = bot_response
+            program.save()
+
+    return render(request, 'pages/program_details.html', {})
+
+
 def program_details(request, program_id):
     program = get_object_or_404(Program, id=program_id)
     progress = calculate_progress(program.raised, program.budget)
+
+    projection = generate_projection(program.program_objective)
+
+    program.projection = projection
 
     context = {
         'program': program,
         'progress': progress,
     }
     return render(request, 'pages/program_details.html', context)
-
-
-def chart_view(request):
-    # Retrieve the chart data from the database
-    chart_data = ChartData.objects.all()
-
-    # Pass the chart data to the template
-    context = {'chart_data': chart_data}
-    return render(request, 'components/statistics.html', context)
-

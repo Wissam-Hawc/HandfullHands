@@ -3,58 +3,63 @@
 <head>
   <title>{{ program.program_name }}</title>
   <style>
-    body {
-      margin: 0;
-      padding: 0;
-      font-family: Arial, sans-serif;
-      background-color: #f5f5f5;
-    }
 
-    .program-title {
+    .program-details-title {
       text-align: center;
       font-size: 40px;
-      padding: 20px 0;
+      padding: 5px 0;
       color: #0056b3;
+      margin-top: 10px;
+      margin-bottom: 0px; /* Added margin to the bottom of the container */
     }
 
-    .program-container {
+    .program-details-container {
       display: flex;
       justify-content: center;
-      align-items: flex-start;
-      margin-top: 20px;
-      padding: 20px;
-      background-color: #fff;
+      background-color: ;
+      height: 550px;
+      padding: 0px;
       box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      margin-bottom: 20px;
     }
 
-    .program-image {
-      flex-basis: 30%;
-      padding-right: 20px;
-    }
-
-    .program-image img {
-      width: 100%;
+    .program-details-image {
+      flex-basis: 60%;
       border-radius: 4px;
+      margin-top: 30px;
+      margin-right: 15px;
+      overflow: hidden;
     }
 
-    .program-description {
-      flex-basis: 70%;
-      margin-left: 20px;
+    .program-details-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
     }
 
-    .program-description h2 {
+    .program-details-progressBar {
+      margin-top: 160px;
+      flex-basis: 30%;
+    }
+
+    .program-details-description {
+      margin-left: 30px;
+      margin-bottom: 60px;
+    }
+
+    .program-details-description h2 {
       font-size: 18px;
       margin-bottom: 10px;
-      color: #7da1c9; /* Changed heading color to a darker shade (#4F4F4F) */
+      color: #7da1c9;
     }
 
-    .program-description p {
+    .program-details-description p {
       margin-bottom: 10px;
       color: #666;
       line-height: 1.6;
     }
 
-    .donate-button {
+    .program-details-donate-button {
       display: inline-block;
       padding: 10px 20px;
       background-color: #0056b3;
@@ -66,35 +71,70 @@
       transition: background-color 0.3s ease;
     }
 
-    .donate-button:hover {
-      color:white;
+    .program-details-donate-button:hover {
+      color: white;
       background-color: #007bff;
       list-style: none;
       text-decoration: none;
     }
 
+    /* Media query for smaller screens */
+    @media (max-width: 768px) {
+      .program-details-container {
+        flex-direction: column;
+        height: auto;
+        padding-bottom:0px;
+
+      }
+
+      .program-details-image {
+        margin-right: 0;
+        margin-bottom: 20px; /* Added margin to separate image and description */
+      }
+
+      .program-details-progressBar {
+        margin-top: 0;
+        flex-basis: 70%; /* Expand the progress bar to full width */
+      }
+
+      .program-details-description h2 {
+        font-size: 16px;
+
+      }
+
+      .program-details-description p {
+        font-size: 14px;
+      }
+    }
+
+
+
   </style>
 </head>
 <body>
   {% include 'components/navbar.html' %}
-  <h1 class="program-title">{{ program.program_name }}</h1>
+  <h1 class="program-details-title">{{ program.program_name }}</h1>
 
-  <div class="program-container">
-    <div class="program-image">
+  <div class="program-details-container">
+    <div class="program-details-image">
       <img src="{{ program.program_image.url }}" alt="Program Image">
+    </div>
+    <div class="program-details-progressBar">
+      <p>{{ program.program_description }}</p>
       {% include 'components/progressbar.html' %}
     </div>
-    <div class="program-description">
-      <p>{{ program.program_description }}</p>
-      <h2>The Challenge:</h2>
-      <p>{{ program.program_challenge }}</p>
-      <h2>Objective:</h2>
-      <p>{{ program.program_objective }}</p>
-      <h2>The Plan:</h2>
-      <p>{{ program.program_plan }}</p>
+  </div>
 
-      <a href="#" class="donate-button">Lend Your Hand</a>
-    </div>
+  <div class="program-details-description">
+    <h2>The Challenge:</h2>
+    <p>{{ program.program_challenge }}</p>
+    <h2>Objective:</h2>
+    <p>{{ program.program_objective }}</p>
+    <h2>The Plan:</h2>
+    <p>{{ program.program_plan }}</p>
+    <h2>Projection:</h2>
+  <p>{{ program.projection }}</p>
+<h6 style="color: #24202A;">powered by 'text-davinci-003'</h6>
   </div>
 
   {% include 'components/footer.html' %}

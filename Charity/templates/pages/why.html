@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Support our mission to make a positive impact in the world. Explore our charitable projects, donate to those in need, and join our community of volunteers. Together, we can make a difference.">
+    <title>Document</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #5fa0b8;
+            color: white;
+            margin-top: 60px;
+            padding-bottom: 60px;
+        }
+
+        .whycontainer {
+            padding: 20px;
+        }
+
+      .whycontainer  h1 {
+            margin-top: 120px !important;
+            padding: 20px;
+            color: #5fa0b8;
+            text-align: center;
+            border-bottom: 2px solid #3c8eb2;
+        }
+
+        .section-title {
+            margin-top: 40px;
+            margin-bottom: 20px;
+            color: #5fa0b8;
+            text-align: center;
+            border-bottom: 1px solid #3c8eb2;
+            padding-bottom: 10px;
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .diagrams-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            margin-bottom: 40px;
+        }
+
+        .diagram-container {
+            width: 400px;
+            height: 300px;
+            background-color: white;
+            margin-bottom: 20px;
+            padding: 20px;
+        }
+
+        .special-thanks-container {
+            margin-top: 60px;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .special-thanks-title {
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 1px solid #3c8eb2;
+            padding-bottom: 10px;
+            width: 75%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .special-thanks-image {
+            width: 100px;
+            height: 100px;
+            object-fit: cover;
+            border-radius: 50%;
+            margin-bottom: 10px;
+        }
+
+        .special-thanks-description {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+
+{% include 'components/navbar.html' %}
+
+<div class="whycontainer">
+    <h1>In HopefullHands, despair meets its end, and hope reignites.</h1>
+    <p>HopefullHands: A Ray of Light in the Darkness
+
+In a world teeming with challenges, where despair and hardships cast their long shadows, there exists a beacon of hope, an organization that stands tall amidst the darkness. Welcome to HopefullHands, where compassion meets action, and dreams are ignited with unwavering determination.
+
+Why HopefullHands, you may ask? Because within the depths of our souls, we believe in the power of a helping hand, in the profound impact that kindness can have on those who have lost their way. We refuse to turn a blind eye to the struggles that surround us, for we understand that the measure of our humanity lies in our ability to uplift others.
+
+Scholarship, hunger, and housing—these are the three pillars upon which our mission rests. We have dedicated ourselves to the noble pursuit of eradicating illiteracy, nourishing empty stomachs, and providing shelter to the homeless. We have chosen Lebanon as our battlefield, where these battles wage fiercest, for we believe that change begins at the heart of communities.
+
+Imagine a world where every child has the opportunity to learn, where their potential is nurtured, and their dreams are given wings to soar. Through our educational initiatives, we strive to bring smiles to the faces of young minds, to illuminate the path of knowledge that leads them towards a brighter future.</p>
+
+    <h2 class="section-title">Statistics: Lebanon</h2>
+
+    <div class="diagrams-container">
+        <div class="diagram-container">
+            <h3>Number of Children Outside School</h3>
+            <canvas id="childrenChart"></canvas>
+        </div>
+
+        <div class="diagram-container">
+            <h3>Homeless People</h3>
+            <canvas id="homelessChart"></canvas>
+        </div>
+
+        <div class="diagram-container">
+            <h3>Hungry People</h3>
+            <canvas id="hungryChart"></canvas>
+        </div>
+    </div>
+
+    <h2 class="section-title">Special Thanks</h2>
+
+    <div class="special-thanks-container">
+        <div>
+            <img src="image1.jpg" alt="Person 1" class="special-thanks-image">
+            <p class="special-thanks-description">Description of Person 1</p>
+        </div>
+        <div>
+            <img src="image2.jpg" alt="Person 2" class="special-thanks-image">
+            <p class="special-thanks-description">Description of Person 2</p>
+        </div>
+        <div>
+            <img src="image3.jpg" alt="Person 3" class="special-thanks-image">
+            <p class="special-thanks-description">Description of Person 3</p>
+        </div>
+    </div>
+</div>
+
+{% include 'components/footer.html' %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    // Chart data
+    var childrenData = {
+        labels: ['In School', 'Out of School'],
+        datasets: [{
+            data: [60, 40],
+            backgroundColor: ['#5fa0b8', '#b85f5f']
+        }]
+    };
+
+    var homelessData = {
+        labels: ['Sheltered', 'Homeless'],
+        datasets: [{
+            data: [60, 40],
+            backgroundColor: ['#5fa0b8', '#b85f5f']
+        }]
+    };
+
+    var hungryData = {
+        labels: ['Food Secure', 'Food Insecure'],
+        datasets: [{
+            data: [70, 30],
+            backgroundColor: ['#5fa0b8', '#b85f5f']
+        }]
+    };
+
+    // Chart options
+    var options = {
+        responsive: true,
+        maintainAspectRatio: false,
+        legend: {
+            position: 'bottom'
+        }
+    };
+
+    // Create and render the charts
+    var childrenChart = new Chart(document.getElementById('childrenChart'), {
+        type: 'doughnut',
+        data: childrenData,
+        options: options
+    });
+
+    var homelessChart = new Chart(document.getElementById('homelessChart'), {
+        type: 'doughnut',
+        data: homelessData,
+        options: options
+    });
+
+    var hungryChart = new Chart(document.getElementById('hungryChart'), {
+        type: 'doughnut',
+        data: hungryData,
+        options: options
+    });
+</script>
+</body>
+</html>

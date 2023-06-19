@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Pie Chart Example</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        #pieChart {
+            height: 200px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="pieChart"></canvas>
+
+    <script>
+        // Get the progress value from the server-side or Django template
+        var progress = {{ progress }};
+
+        // Calculate the remaining budget
+        var remainingBudget = {{ program.budget }} - {{ program.raised }};
+
+        // Create the chart data
+        var data = {
+            labels: ['Raised', 'Remaining'],
+            datasets: [{
+                data: [{{ program.raised }}, remainingBudget],
+                backgroundColor: ['#7da1c9', '#dfe9f3']
+            }]
+
+        };
+
+        // Create the pie chart
+        var pieChart = new Chart(document.getElementById('pieChart'), {
+            type: 'pie',
+            data: data,
+            options: {
+                legend: {
+                    display: false
+                },
+                tooltips: {
+                    callbacks: {
+                        label: function (tooltipItem, data) {
+                            var label = data.labels[tooltipItem.index];
+                            var value = data.datasets[0].data[tooltipItem.index];
+                            return label + ': ' + value + '$';
+                        }
+                    }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
