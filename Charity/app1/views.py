@@ -1,10 +1,11 @@
+# from asgiref.sync import async_to_sync
+# from channels.layers import get_channel_layer
 import openai
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db.models import Sum, F
-from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
@@ -16,11 +17,9 @@ import stripe
 
 def home(request):
     registration_success = request.session.pop('registration_success', False)
-    donation_success = request.session.pop('donation_success', False)
     programs = Program.objects.all()  # Retrieve the programs data from the database
     context = {
         'registration_success': registration_success,
-        'donation_success': donation_success,
         'programs': programs
     }
     return render(request, 'pages/home.html', context)
@@ -52,10 +51,10 @@ def contact(request):
             contact = Contact(full_name=full_name, email=email, phone=phone, message=message)
             contact.save()
             print("Contact saved successfully:", contact)
-            return redirect("/")  # Render a success page after saving the data
+            return redirect("/")
         except Exception as e:
             print("An error occurred while saving the contact:", e)
-            return render(request, 'pages/contact.html')  # Render the form page with an error message
+            return render(request, 'pages/contact.html')
     else:
         return render(request, 'pages/contact.html')  # Render the initial form page
 
@@ -83,7 +82,6 @@ def login_view(request):
 
 def logout_user(request):
     logout(request)
-    messages.success(request, "You Were Logged Out!")
     return redirect("home")
 
 
@@ -214,6 +212,17 @@ def stripePay(request):
                 stripeid=None,
                 status="failed"
             )
+        # else:
+        #     channel_layer = get_channel_layer()
+        #     async_to_sync(channel_layer.group_send)(
+        #         "donation_notifications",
+        #         {
+        #             "type": "donation_notification",
+        #             "message": f"😮New donation: {amount}$ by {full_name}😮",
+        #         },
+        #     )
+        #     # Redirect to the home page if the payment is successful
+        #     return redirect('home')
 
     # Retrieve the program names and pass them to the template context
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})

@@ -1,0 +1,8 @@
+piasgiref==3.7.2
+channels==4.0.0
+Django==4.2.2
+stripe==5.4.0
+pillow==9.5.0
+daphne==4.0.0
+channels_redis==4.1.0
+redis-server==6.0.16

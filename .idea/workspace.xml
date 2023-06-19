@@ -4,64 +4,165 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="9901f7f0-3761-4b98-92a3-d1fed02f811f" name="Changes" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/HopefullHands1.iml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Changes/shelved.patch" beforeDir="false" />
+    <list default="true" id="caf7aa4f-6140-44e9-a385-2a5d5354e998" name="Changes" comment="adding some conf for the email">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/Charity/asgi.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/Charity/asgi.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/Charity/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/Charity/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/Charity/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/Charity/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/app1/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/app1/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/app1/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/urls.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/app1/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/app1/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/cards.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/cards.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/navbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/navbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/pieChart.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/pieChart.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/profile.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/profile.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/programInfo.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/programInfo.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/progressbar.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/progressbar.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/slider.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/slider.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/components/statistics.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/components/statistics.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/about.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/about.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_9V0qGqm.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_Gwhd912.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_LW0vcob.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_NzUJJqh.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_b8EThj7.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_lybidrB.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/ROW-50-charity_pW3SZRa.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/media/images/kids-lying-1024x683.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/back1.jpg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/img.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/prog1.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/prog2.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/prog3.webp" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/static/images/prog4.webp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Charity/templates/pages/donation.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/donation.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/program_details.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/program_details.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/why.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/why.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Charity/templates/pages/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/Charity/templates/pages/home.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="ChangesViewManager" show_ignored="true" />
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2RHr81dsiTL5bkCDNjMFRRKdQUo" />
+  <component name="GitHubPullRequestSearchHistory">{
+  &quot;lastFilter&quot;: {
+    &quot;state&quot;: &quot;OPEN&quot;
+  }
+}</component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="37a7e57d-7afc-4d32-a12c-0000c25fbbe6" />
+        <option name="url" value="https://github.com/Wissam-Hawc/HandfullHands.git" />
+      </UrlAndAccount>
+    </option>
+  </component>
+  <component name="ProjectId" id="2RASW7hr8QdBCtGVoulXaqP6WzR" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/acer-pc/PycharmProjects/HopefullHands - Copy&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "//wsl$/Ubuntu/home/wissam/HopefullHands"
   }
-}</component>
+}]]></component>
+  <component name="RunManager">
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="finalproject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="Tox" factoryName="Tox">
+      <module name="finalproject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Docutils task">
+      <module name="finalproject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="docs" factoryName="Sphinx task">
+      <module name="finalproject" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="docutils_input_file" value="" />
+      <option name="docutils_output_file" value="" />
+      <option name="docutils_params" value="" />
+      <option name="docutils_task" value="" />
+      <option name="docutils_open_in_browser" value="false" />
+      <method v="2" />
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="9901f7f0-3761-4b98-92a3-d1fed02f811f" name="Changes" comment="" />
-      <created>1686917685575</created>
+      <changelist id="caf7aa4f-6140-44e9-a385-2a5d5354e998" name="Changes" comment="" />
+      <created>1686691420959</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1686917685575</updated>
+      <updated>1686691420959</updated>
     </task>
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="CUSTOM_BOOLEAN_PROPERTIES">
+                <map>
+                  <entry key="Show.Git.Branches" value="true" />
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="m" />
+    <MESSAGE value="adding some conf for the email" />
+    <option name="LAST_COMMIT_MESSAGE" value="adding some conf for the email" />
   </component>
 </project>
