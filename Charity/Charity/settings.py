@@ -30,6 +30,8 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'daphne',
+    'channels',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -37,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'app1',
+
 ]
 
 MIDDLEWARE = [
@@ -119,10 +122,6 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
-
-
-
-
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
@@ -139,3 +138,15 @@ EMAIL_FROM = 'hopefullhandswm@gmail.com'
 EMAIL_HOST_USER = 'hopefullhandswm@gmail.com'
 EMAIL_HOST_PASSWORD = 'gnoniyrcauvlscdy'
 EMAIL_USE_TLS = True
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels_redis.core.RedisChannelLayer',
+        'CONFIG': {
+            'hosts': [('localhost', 6379)],
+        },
+    },
+}
+ASGI_APPLICATION = "Charity.asgi.application"
+
+

@@ -1,5 +1,8 @@
+from channels.layers import get_channel_layer
 from django.contrib import admin
 from .models import Profile, Donation, Program, Content, Contact, GuestUser
+
+# channel_layer = get_channel_layer()
 
 
 class ProfileAdmin(admin.ModelAdmin):

@@ -7,6 +7,53 @@
     <meta name="description" content="Support our mission to make a positive impact in the world. Explore our charitable projects, donate to those in need, and join our community of volunteers. Together, we can make a difference.">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+<script>
+const socket = new WebSocket("ws://localhost:8000/ws/notification/");
+
+socket.onmessage = function (event) {
+  const data = JSON.parse(event.data);
+  const message = data.message;
+
+  const notificationElement = document.getElementById("notification");
+  notificationElement.innerText = message;
+
+  // Apply styles to the notification div
+  notificationElement.style.backgroundColor = "#fff";
+  notificationElement.style.position = "fixed";
+  notificationElement.style.width = "100%";
+  notificationElement.style.zIndex = "99999";
+  notificationElement.style.padding = "20px";
+  notificationElement.style.height= "10%";
+  notificationElement.style.display = "block";
+  notificationElement.style.textAlign = "center";
+  notificationElement.style.animation = "fade-out 10s forwards";
+
+  // Set a timeout to remove the notification after 5 seconds
+  setTimeout(function() {
+    notificationElement.style.display = "none";
+  }, 10000);
+};
+</script>
+
+<style>
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
+</style>
+
+
+
+
+
+
+
+
     <style>
     html {
   scroll-behavior: smooth;
@@ -72,9 +119,9 @@
         document.getElementById(alertId).style.display = "none";
     }
 </script>
+<div id="notification"></div>
 
 {% include 'components/navbar.html' %}
-
 {% include 'components/slider.html' %}
 <p class="title1">Hands-on projects</p>
 {% include 'components/cards.html' %}
