@@ -1,6 +1,6 @@
-# from asgiref.sync import async_to_sync
-# from channels.layers import get_channel_layer
-import openai
+from asgiref.sync import async_to_sync
+from channels.layers import get_channel_layer
+# import openai
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -9,8 +9,8 @@ from django.db.models import Sum, F
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-from openai import api_key
-import openai, os
+# from openai import api_key
+# import openai, os
 from .models import Content, Program, Contact, Donation, GuestUser
 import stripe
 
@@ -212,17 +212,17 @@ def stripePay(request):
                 stripeid=None,
                 status="failed"
             )
-        # else:
-        #     channel_layer = get_channel_layer()
-        #     async_to_sync(channel_layer.group_send)(
-        #         "donation_notifications",
-        #         {
-        #             "type": "donation_notification",
-        #             "message": f"😮New donation: {amount}$ by {full_name}😮",
-        #         },
-        #     )
-        #     # Redirect to the home page if the payment is successful
-        #     return redirect('home')
+        else:
+            channel_layer = get_channel_layer()
+            async_to_sync(channel_layer.group_send)(
+                "donation_notifications",
+                {
+                    "type": "donation_notification",
+                    "message": f"😮New donation: {amount}$ by {full_name}😮",
+                },
+            )
+            # Redirect to the home page if the payment is successful
+            return redirect('home')
 
     # Retrieve the program names and pass them to the template context
     return render(request, "pages/donation.html", {"programs": Program.objects.all()})
@@ -263,35 +263,35 @@ def generate_projection(objective):
 api_key = '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'
 
 
-def chatbot(request, program_id=None):
-    if api_key is not None:
-        openai.api_key = api_key
-
-        program = Program.objects.get(id=program_id)
-
-        prompt = program.program_objective
-
-        try:
-            response = openai.Completion.create(
-                engine='text-davinci-003',
-                prompt=prompt,
-                max_tokens=1000,  # Increase the max_tokens value to generate a longer text
-                temperature=0.5,
-            )
-            bot_response = response.choices[0].text.strip()
-
-            program.chatbot_response = bot_response
-            program.save()
-
-            print(response)
-
-        except openai.error.RateLimitError:
-            bot_response = "Rate limit exceeded. Please try again later."
-
-            program.chatbot_response = bot_response
-            program.save()
-
-    return render(request, 'pages/program_details.html', {})
+# def chatbot(request, program_id=None):
+#     if api_key is not None:
+#         openai.api_key = api_key
+#
+#         program = Program.objects.get(id=program_id)
+#
+#         prompt = program.program_objective
+#
+#         try:
+#             response = openai.Completion.create(
+#                 engine='text-davinci-003',
+#                 prompt=prompt,
+#                 max_tokens=1000,  # Increase the max_tokens value to generate a longer text
+#                 temperature=0.5,
+#             )
+#             bot_response = response.choices[0].text.strip()
+#
+#             program.chatbot_response = bot_response
+#             program.save()
+#
+#             print(response)
+#
+#         except openai.error.RateLimitError:
+#             bot_response = "Rate limit exceeded. Please try again later."
+#
+#             program.chatbot_response = bot_response
+#             program.save()
+#
+#     return render(request, 'pages/program_details.html', {})
 
 
 def program_details(request, program_id):
