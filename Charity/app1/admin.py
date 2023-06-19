@@ -32,3 +32,6 @@ admin.site.register(Donation, DonationAdmin)
 admin.site.register(Program, ProgramAdmin)
 admin.site.register(Content, ContentAdmin)
 admin.site.register(Contact, ContactAdmin)
+
+admin.site.index_template = 'admin/index.html'
+admin.site.login_template = 'admin/login.html'

@@ -6,6 +6,7 @@
   }
 
   .navbar {
+    position: fixed !important;
     height: 6em;
     top: 0;
     left: 0;
@@ -115,24 +116,25 @@
   }
 
   .menu a::before {
-    content: "";
-    position: absolute;
-    bottom: -10px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background-color: white;
-    opacity: 0;
-    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
-  }
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: white;
+  opacity: 0;
+  transform: scaleX(0); /* Initial scale */
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
+}
 
-  .menu a:hover::before,
-  .menu a.active::before {
-    opacity: 1;
-    transform: translateX(-50%) scale(1.5);
-  }
+.menu a:hover::before,
+.menu a.active::before {
+  opacity: 1;
+  transform: scaleX(1); /* Scale to full width */
+  transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, width 0.2s 0.1s; /* Add transition for width change */
+}
+
 
   .menu a:hover,
   .menu a.active {
@@ -148,12 +150,15 @@
       padding: 10px;
     }
 
+    .logo h3{
+    margin-top:16px;
+    }
     .logo img {
-      margin-right: 0;
-      margin-bottom: 10px;
+      display:none;
     }
 
     .menu-toggle {
+    margin-right:2px;
       margin-left: auto;
       margin-top: 70px;
     }
@@ -225,7 +230,7 @@
         <a href="{% url 'programs' %}">Programs</a>
       </li>
       <li>
-        <a href="#">Why HopefulHands</a>
+       <a href="{% url 'why_hopfullhand' %}">Why HopefulHands</a>
       </li>
       <li>
         <a href="{% url 'about'  %}">About Us</a>

@@ -1,4 +1,6 @@
-from .views import home, programs, about, contact, login_view, logout_user, register, stripePay,program_details
+from . import views
+from .views import home, programs, about, contact, login_view, logout_user, register, stripePay, program_details, \
+    chatbot
 from django.urls import path, re_path
 
 
@@ -12,5 +14,7 @@ urlpatterns = [
     re_path(r'^.*register/$', register, name='register'),
     re_path(r'^.*donate/$', stripePay, name='donate'),
     re_path(r'^.*programs/(?P<program_id>\d+)/$', program_details, name='program_details'),
+    re_path(r'^.*hopfullhand/$', views.whyHopfullhand, name='why_hopfullhand'),
+    path('chatbot/', chatbot, name='chatbot'),
 
 ]
