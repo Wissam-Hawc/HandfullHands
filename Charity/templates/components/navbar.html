@@ -131,7 +131,7 @@
 .menu a:hover::before,
 .menu a.active::before {
   opacity: 1;
-  transform: scaleX(1); /* Scale to full width */
+  transform: scaleX(0.8); /* Scale to full width */
   transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out, width 0.2s 0.1s; /* Add transition for width change */
 }
 
@@ -230,7 +230,7 @@
         <a href="{% url 'programs' %}">Programs</a>
       </li>
       <li>
-       <a href="{% url 'why_hopfullhand' %}">Why HopefulHands</a>
+       <a href="{% url 'why_hopfullhand' %}">Why HopefullHands</a>
       </li>
       <li>
         <a href="{% url 'about'  %}">About Us</a>

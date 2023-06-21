@@ -11,22 +11,15 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
-    }
-
-    .program-details strong {
-      display: inline-block;
-      width: 100px;
-      padding-bottom: 10px !important;
+      height: 40vh;
     }
 
     .progress-bar1 {
       width: 100%;
-      height: 10px;
+      height: 14px; /* Reduce the height to make it thinner */
       border-radius: 4px;
       background-color: #dfe9f3;
       overflow: hidden;
-
     }
 
     .progress-bar-inner1 {
@@ -45,10 +38,10 @@
     /* Fixed progress bar style */
     .fixed-progress-bar {
       position: fixed;
-      top: 10%;
-      left: 0px;
+      top: 13%;
+      left: 0%;
       width: 100%;
-      height: 60px;
+      height: 30px; /* Reduce the height to make it thinner */
       background-color: #dfe9f3;
       display: none;
       align-items: center;
@@ -58,14 +51,23 @@
       animation: fade-in 0.5s ease;
     }
 
-    .fixed-progress-bar-inner {
-      height: 10px;
-      width: {{ progress }}%;
-      max-width: 70%;
+    .fixed-progress-bar-container {
+      width: 100%;
+      margin:4px 28px;
+      height: 5px; /* Reduce the height to make it thinner */
       border-radius: 4px;
-      background: linear-gradient(to right, #7da1c9, #9c6db3);
+  background: linear-gradient(to right, #f4f4f4, #e0e0e0, #f4f4f4);
+
+      overflow: hidden;
+    }
+
+    .fixed-progress-bar-inner {
+      height: 100%;
       transition: width 0.3s ease;
-      animation: progress-width 0.3s ease;
+    }
+
+    .fixed-progress-bar-inner.gradient {
+      background: linear-gradient(to right, #e95950, #ec7531);
     }
 
     /* Animation keyframes */
@@ -90,6 +92,14 @@
     .fixed-progress-bar-details {
       display: flex;
       align-items: center;
+      position: absolute;
+      top: -20px; /* Position it on top of the progress bar */
+      left: 0;
+      right: 0;
+      height: 30px; /* Same height as the fixed progress bar */
+      padding: 0 50px;
+      background-color: #dfe9f3;
+      z-index: 1000;
     }
 
     .fixed-progress-bar-details strong {
@@ -108,15 +118,9 @@
     }
 
     .fixed-progress-bar-details a.program-details-donate-button {
-      padding: 5px 10px;
-    }
+      margin-top: 1px;
+      padding: 3px 10px;
 
-    .fixed-progress-bar-details strong:nth-child(3) {
-      margin-right: 20px;
-    }
-
-    .fixed-progress-bar-details span {
-      display: none;
     }
 
     /* Additional style for shorter fixed progress bar */
@@ -128,6 +132,33 @@
     body.show-fixed-progress-bar .fixed-progress-bar.shorter {
       display: flex;
     }
+
+    @media (max-width: 768px) {
+      .fixed-progress-bar-details a.program-details-donate-button {
+        height: 25px;
+      }
+
+      .fixed-progress-bar-details-text {
+        display: none;
+      }
+    }
+
+    /* Responsive modifications */
+    @media (max-width: 768px) {
+      .program-details {
+        font-size: 1.5em;
+      }
+
+      .fixed-progress-bar {
+        top: 13%;
+        height: 20px; /* Reduce the height for small screens */
+      }
+
+      .fixed-progress-bar-details strong:nth-child(3) {
+        margin-right: 15px;
+      }
+    }
+
   </style>
 </head>
 <body>
@@ -136,7 +167,7 @@
       <div class="progress-bar-inner1 gradient" style="width: {{ progress }}%;"></div>
     </div>
 
-    <div class="program-details" style="font-size: 2em;">
+    <div class="program-details" style="font-size: 1.5em;"> <!-- Reduce the font size for small screens -->
       <strong>{{ program.raised }}$</strong>
     </div>
 
@@ -152,11 +183,13 @@
   </div>
 
   <div class="fixed-progress-bar">
-    <div class="fixed-progress-bar-inner shorter gradient" style="width: {{ progress }}%;"></div>
+    <div class="fixed-progress-bar-container">
+      <div class="fixed-progress-bar-inner shorter gradient" style="width: {{ progress }}%;"></div>
+    </div>
     <div class="fixed-progress-bar-details">
       <strong>{{ program.raised }}$</strong>
-      <strong>funded of {{ program.budget }}$</strong>
-      <a href="#" class="program-details-donate-button">Lend Your Hand</a>
+      <strong> raised of{{ program.budget }}$</strong>
+      <a href="{% url 'donate' %}" class="program-details-donate-button">Lend Your Hand</a>
     </div>
   </div>
 
@@ -168,6 +201,10 @@
     var progressBar = document.querySelector('.progress-bar-inner1');
     progressBar.style.width = progress + '%';
     progressBar.classList.add('gradient');
+
+    var fixedProgressBarInner = document.querySelector('.fixed-progress-bar-inner');
+    fixedProgressBarInner.style.width = progress + '%';
+    fixedProgressBarInner.classList.add('gradient');
 
     // Show the fixed progress bar on scroll
     window.addEventListener('scroll', function() {

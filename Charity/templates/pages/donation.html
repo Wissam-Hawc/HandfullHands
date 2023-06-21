@@ -1,11 +1,15 @@
-{% load static %}
+
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta name="description" content="Support our charity's mission by making a donation. Learn how your contribution can make a positive impact and help those in need. Discover various donation options, including one-time donations or recurring contributions. Together, we can make a difference and bring hope to the lives of others.">
+        <link href="{% static 'main/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/fonts/fontawesome-all.min.css' %}" rel="stylesheet">
+    <link href="{% static 'main/css/styles.min.css' %}" rel="stylesheet">
     <title>Donate to HopeFullHands</title>
     <style>
         body {
@@ -55,6 +59,9 @@
             width: 100%;
             background-color:#0056b3;
         }
+        #error_alert {
+        z-index: 9999; /* Adjust the value as needed */
+        }
 
     </style>
 </head>
@@ -69,6 +76,7 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
+
 <script>
     function closeErrorAlert() {
         document.getElementById("error_alert").style.display = "none";

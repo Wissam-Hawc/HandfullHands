@@ -1,32 +1,31 @@
 from asgiref.sync import async_to_sync
 from channels.layers import get_channel_layer
-# import openai
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
 from django.core.mail import send_mail
 from django.db.models import Sum, F
 from django.shortcuts import render, redirect, get_object_or_404
-from django.template.loader import render_to_string
-from django.utils.html import strip_tags
-# from openai import api_key
-# import openai, os
 from .models import Content, Program, Contact, Donation, GuestUser
 import stripe
 
 
 def home(request):
-    registration_success = request.session.pop('registration_success', False)
-    programs = Program.objects.all()  # Retrieve the programs data from the database
+    programs = Program.objects.order_by('-id')[:4]  # Retrieve the programs data from the database
+    slider1_content = Content.objects.get(page_name='home-slider1')
+    slider2_content = Content.objects.get(page_name='home-slider2')
+    slider3_content = Content.objects.get(page_name='home-slider3')
     context = {
-        'registration_success': registration_success,
-        'programs': programs
+        'programs': programs,
+        'slider1_content': slider1_content,
+        'slider2_content': slider2_content,
+        'slider3_content': slider3_content,
     }
     return render(request, 'pages/home.html', context)
 
 
 def programs(request):
-    programs = Program.objects.all()
+    programs = Program.objects.order_by('-id')[:4]
     context = {'programs': programs}
     return render(request, 'pages/programs.html', context)
 
@@ -73,6 +72,7 @@ def login_view(request):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                messages.success(request, 'Logged in successfully!',extra_tags='login_success')
                 return redirect('home')  # Redirect to the home page after successful login
         else:
             messages.error(request, 'Incorrect username or password. Please try again.')
@@ -180,15 +180,16 @@ def stripePay(request):
                     stripeid=charge["id"],
                     status="success"
                 )
+
                 Program.objects.filter(pk=program.pk).update(raised=F('raised') + amount)
 
-                subject = 'Thank You for Your Donation'
-                template = 'pages/email_donation.html'
-                context = {'full_name': full_name, 'amount': amount}
-                message = render_to_string(template, context)
-                plain_message = strip_tags(message)
-                recipient_list = [email]
-                send_mail(subject, plain_message, 'hopefullhandswm@gmail.com', recipient_list, html_message=message)
+                # subject = 'Thank You for Your Donation'
+                # template = 'pages/email_donation.html'
+                # context = {'full_name': full_name, 'amount': amount}
+                # message = render_to_string(template, context)
+                # plain_message = strip_tags(message)
+                # recipient_list = [email]
+                # send_mail(subject, plain_message, 'hopefullhandswm@gmail.com', recipient_list, html_message=message)
 
                 messages.success(request, 'Donation successful! Thank you for your contribution.',
                                  extra_tags='donation_success')

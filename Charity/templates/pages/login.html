@@ -89,7 +89,7 @@
 <body>
 {% block content %}
 {% if messages %}
-<div class="alert alert-danger alert-dismissible fade show" role="alert" id="login-error">
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="login-error" style="z-index:9999;position:fixed;width:100%;">
     {% for message in messages %}
     {{ message }}
     {% endfor %}

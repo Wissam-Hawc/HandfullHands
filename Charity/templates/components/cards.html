@@ -18,7 +18,14 @@
       overflow: hidden;
       background-size: cover;
       background-position: center;
-      transition: transform 0.3s ease;
+      opacity: 0; /* Initially hide the cards */
+      transform: translateY(100px); /* Initially move the cards down */
+      transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Added custom cubic-bezier animation */
+    }
+
+    .charity-card.show {
+      opacity: 1; /* Show the cards with animation */
+      transform: translateY(0); /* Move the cards to their original position */
     }
 
     .charity-card:hover {
@@ -67,7 +74,7 @@
       display: block;
       width: 70%;
       padding: 10px;
-      background-color:#0056b3;
+      background-color: #0056b3;
       color: #fff;
       text-align: center;
       text-decoration: none;
@@ -98,8 +105,18 @@
         height: 200px; /* Adjusted height to allow content to expand */
       }
     }
-
     </style>
+    <script>
+      // Add animation class to each card when the page loads
+      document.addEventListener('DOMContentLoaded', function() {
+        const charityCards = document.querySelectorAll('.charity-card');
+        charityCards.forEach(function(card, index) {
+          setTimeout(function() {
+            card.classList.add('show');
+          }, index * 200); // Delay each card animation by 200ms
+        });
+      });
+    </script>
 </head>
 <body>
 <div class="charity-container">

@@ -10,7 +10,7 @@
     }
 
     .program-container {
-    margin-top:80px !important;
+      margin-top: 80px !important;
       margin: 20px 80px;
       padding: 30px;
       background-color: #f2f2f2;
@@ -30,6 +30,7 @@
       display: flex;
       align-items: center;
       color: #333333;
+      animation: slideIn 0.5s ease-in-out;
     }
 
     .program-name {
@@ -111,19 +112,46 @@
         width: 100%; /* Set the width to 100% */
       }
     }
+
+    @keyframes slideIn {
+      0% {
+        opacity: 0;
+        transform: translateX(-100%);
+      }
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    /* Delay animation for each program */
+    .program-item:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .program-item:nth-child(2) {
+      animation-delay: 0.2s;
+    }
+
+    .program-item:nth-child(3) {
+      animation-delay: 0.4s;
+    }
+
+    .program-item:nth-child(4) {
+      animation-delay: 0.6s;
+    }
   </style>
 </head>
 <body>
   <div class="program-container">
     <ul class="program-list">
-      {% for program in programs|slice:":4" %}
+      {% for program in programs %}
         <li class="program-item">
           <img class="program-image" src="{{ program.program_image.url }}" alt="Program Image">
           <div class="program-details">
             <div class="program-name">{{ program.program_name }}</div>
             <div class="program-description">{{ program.program_description }}</div>
             <p><strong>Budget:</strong> ${{ program.budget }}</p>
-            <p><strong>Start Date:</strong> {{ program.start_date }}</p>
             <p><strong>End Date:</strong> {{ program.end_date }}</p>
             <p><strong>Raised:</strong> {{ program.raised }}$ out of {{ program.budget }}$</p>
           </div>
@@ -131,7 +159,6 @@
             <a href="{% url 'program_details' program_id=program.id %}" class="details-button">Details</a>
             <a href="{% url 'donate' %}" class="donate-button">Lend Your Hand</a>
           </div>
-
         </li>
       {% endfor %}
     </ul>

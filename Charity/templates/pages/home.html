@@ -7,54 +7,90 @@
     <meta name="description" content="Support our mission to make a positive impact in the world. Explore our charitable projects, donate to those in need, and join our community of volunteers. Together, we can make a difference.">
     <title>Document</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-<script>
-const socket = new WebSocket("ws://localhost:8000/ws/notification/");
-
-socket.onmessage = function (event) {
-  const data = JSON.parse(event.data);
-  const message = data.message;
-
-  const notificationElement = document.getElementById("notification");
-  notificationElement.innerText = message;
-
-  // Apply styles to the notification div
-  notificationElement.style.backgroundColor = "#fff";
-  notificationElement.style.position = "fixed";
-  notificationElement.style.width = "100%";
-  notificationElement.style.zIndex = "99999";
-  notificationElement.style.padding = "20px";
-  notificationElement.style.height= "10%";
-  notificationElement.style.display = "block";
-  notificationElement.style.textAlign = "center";
-  notificationElement.style.animation = "fade-out 10s forwards";
-
-  // Set a timeout to remove the notification after 5 seconds
-  setTimeout(function() {
-    notificationElement.style.display = "none";
-  }, 10000);
-};
-</script>
-
 <style>
-@keyframes fade-out {
-  0% {
-    opacity: 1;
-  }
-  100% {
+  #chat-container {
     opacity: 0;
-    visibility: hidden;
+    transition: opacity 0.3s, transform 0.3s;
+    transform: translateY(100%);
   }
-}
+
+  #chat-container.show {
+    display:inherit;
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  #chat-container.hide {
+    display:none;
+    opacity: 0;
+    transform: translateY(100%);
+  }
+
+  .close-button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #999999;
+  }
 </style>
 
+<script>
+  const socket = new WebSocket("ws://localhost:8000/ws/notification/");
 
+  socket.onmessage = function (event) {
+    const data = JSON.parse(event.data);
+    const message = data.message;
 
+    const notificationElement = document.getElementById("notification");
+    notificationElement.innerText = message;
 
+    const containerElement = document.getElementById("chat-container");
 
+    // Apply styles to the container
+    containerElement.style.position = "fixed";
+    containerElement.style.bottom = "20px";
+    containerElement.style.left = "20px";
+    containerElement.style.padding = "10px";
+    containerElement.style.backgroundColor = "#ffffff";
+    containerElement.style.borderRadius = "8px";
+    containerElement.style.boxShadow = "0 2px 5px rgba(0, 0, 0, 0.3)";
+    containerElement.style.zIndex = "99999";
 
+    // Apply styles to the notification div
+    notificationElement.style.padding = "10px";
 
+    // Add the close button
+    const closeButton = document.createElement("span");
+    closeButton.innerHTML = "&times;";
+    closeButton.className = "close-button";
+    closeButton.onclick = function () {
+      containerElement.classList.remove("show");
+      containerElement.classList.add("hide");
+    };
+    containerElement.appendChild(closeButton);
+
+    // Show the container with animation
+    containerElement.classList.remove("hide");
+    containerElement.classList.add("show");
+
+    // Set a timeout to hide the notification after 10 seconds
+    setTimeout(function () {
+      containerElement.classList.remove("show");
+      containerElement.classList.add("hide");
+    }, 10000);
+  };
+
+        function closeAlert(alertId) {
+        document.getElementById(alertId).style.display = "none";
+    }
+</script>
 
     <style>
+    ::selection {
+    user-select: none;
+    }
     html {
   scroll-behavior: smooth;
 }
@@ -89,6 +125,15 @@ socket.onmessage = function (event) {
     left: 50%;
     transform: translateX(-50%);
 }
+@keyframes fade-out {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
+}
 
     </style>
 </head>
@@ -97,29 +142,32 @@ socket.onmessage = function (event) {
 {% if messages %}
     {% for message in messages %}
         {% if 'registration_success' in message.tags %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="registration-success" style="z-index:9999;position:fixed;width:100%;">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert('registration-success')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         {% elif 'donation_success' in message.tags %}
-            <div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success">
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="donation-success" style="z-index:9999;position:fixed;width:100%;">
                 {{ message }}
                 <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert('donation-success')">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            {% elif 'login_success' in message.tags %}
+            <div class="alert alert-success alert-dismissible fade show" role="alert" id="login-success" style="z-index:9999;position:fixed;width:100%;">
+                {{ message }}
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeAlert('login-success')">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
         {% endif %}
     {% endfor %}
 {% endif %}
-
-<script>
-    function closeAlert(alertId) {
-        document.getElementById(alertId).style.display = "none";
-    }
-</script>
-<div id="notification"></div>
+<div id="chat-container">
+  <div id="notification"></div>
+</div>
 
 {% include 'components/navbar.html' %}
 {% include 'components/slider.html' %}
@@ -130,7 +178,5 @@ socket.onmessage = function (event) {
 {% include 'components/footer.html' %}
 
 {% endblock %}
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js">
-</script>
 </body>
 </html>

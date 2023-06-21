@@ -88,6 +88,20 @@
 </head>
 <body>
     {% block content %}
+{% if error_message %}
+<div class="alert alert-danger alert-dismissible fade show" role="alert" id="registration-error" style="z-index:9999;position:fixed;width:100%;">
+  {{ error_message }}
+  <button type="button" class="close" data-dismiss="alert" aria-label="Close" onclick="closeRegistrationError()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<script>
+  function closeRegistrationError() {
+    document.getElementById("registration-error").style.display = "none";
+  }
+</script>
+{% endif %}
+
         {% include 'components/navbar.html' %}
         <div class="custom-container">
             <div class="custom-logo">

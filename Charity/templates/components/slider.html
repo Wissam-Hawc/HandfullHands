@@ -5,143 +5,150 @@
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <title>Slider</title>
-<style>
-    /* CSS styles */
-    .container1 {
-        width: 100%;
-        height: 80vh;
-        display: flex;
-        position: relative;
-        overflow: hidden;
-        margin-bottom: 20px;
-    }
-
-    .wrapper {
-        height: 100%;
-        display: flex;
-        transition: all 1.5s ease;
-    }
-
-    .slide {
-        width: 100vw;
-        height: 66vw;
-        display: flex;
-        align-items: center;
-        background-size: cover;
-        background-position: center;
-        background-repeat: no-repeat;
-        filter: brightness(0.5);
-    }
-
-    .slide img {
-        size:cover;
-    }
-
-    .fixed-info {
-        position: absolute;
-        top: 50%;
-        left: 2%;
-        transform: translate(0, -50%);
-        text-align: center;
-        z-index: 1;
-    }
-
-    .fixed-info .title {
-        font-size: 70px;
-        color: white;
-    }
-
-    .fixed-info .desc {
-        margin: 50px 0;
-        font-size: 20px;
-        font-weight: 500;
-        letter-spacing: 3px;
-        color: white;
-    }
-
-    .button {
-        padding: 10px;
-        font-size: 20px;
-        background-color: transparent;
-        cursor: pointer;
-        color: white;
-        border: 2px solid white;
-        border-radius: 4px;
-        transition: background-color 0.3s, color 0.3s, border-color 0.3s;
-        margin-left: 0px;
-    }
-
-    /* Hover effect for the button */
-    .button:hover {
-        background-color: white;
-        color: black;
-        border-color: white;
-    }
-
-    /* Responsive styles */
-    @media (max-width: 768px) {
+    <style>
+        /* CSS styles */
         .container1 {
-            height: 60vh;
+            width: 100%;
+            height: 86vh;
+            display: flex;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 20px;
+            margin-top: 95px;
         }
 
-        .fixed-info .title {
-            font-size: 40px;
-        }
-
-        .fixed-info .desc {
-            font-size: 16px;
-        }
-
-        .button {
-            font-size: 16px;
-        }
-    }
-
-    @media (max-width: 480px) {
-        .container1 {
-            height: 50vh;
-        }
-
-        .fixed-info .title {
-            font-size: 30px;
-        }
-
-        .fixed-info .desc {
-            font-size: 14px;
-        }
-
-        .button {
-            font-size: 14px;
+        .wrapper {
+            height: 100%;
+            display: flex;
+            transition: all 1.5s ease;
         }
 
         .slide {
-            background-size: 100% 100%;
+            width: 100vw;
+            height: 55vw;
+            display: flex;
+            align-items: center;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.5);
         }
-    }
-</style>
+
+        .slide img {
+            size: cover;
+        }
+
+        .fixed-info {
+            position: absolute;
+            top: 50%;
+            left: 2%;
+            transform: translate(0, -50%);
+            text-align: center;
+            z-index: 1;
+        }
+
+        .fixed-info .title {
+            font-size: 70px;
+            color: white;
+        }
+
+        .fixed-info .desc {
+            margin: 50px 0;
+            font-size: 20px;
+            font-weight: 500;
+            letter-spacing: 3px;
+            color: white;
+        }
+
+        .button {
+            padding: 10px;
+            font-size: 20px;
+            background-color: transparent;
+            cursor: pointer;
+            color: white;
+            border: 2px solid white;
+            border-radius: 4px;
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+            margin-left: 0px;
+        }
+
+        /* Hover effect for the button */
+        .button:hover {
+            background-color: white;
+            color: black;
+            border-color: white;
+        }
+
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container1 {
+                height: 60vh;
+                margin-top: 60px;
+            }
+
+            .fixed-info .title {
+                font-size: 40px;
+            }
+
+            .fixed-info .desc {
+                font-size: 16px;
+            }
+
+            .button {
+                font-size: 16px;
+            }
+
+            .slide {
+                height: 60vh;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container1 {
+                height: 50vh;
+                margin-top: 50px;
+            }
+
+            .fixed-info .title {
+                font-size: 30px;
+            }
+
+            .fixed-info .desc {
+                font-size: 14px;
+            }
+
+            .button {
+                font-size: 14px;
+            }
+
+            .slide {
+                height: 50vh;
+            }
+        }
+    </style>
 
 </head>
 
 <body style="width:100%;">
-{% load static %}
-<div class="container1">
-    <div class="wrapper" id="wrapper">
-        <div class="slide" style="background-image: url({% static 'images/Cover.jpg' %});"></div>
-        <div class="slide" style="background-image: url({% static 'images/aaaa.jpg' %});"></div>
-        <div class="slide" style="background-image: url({% static 'images/img.jpg' %});"></div>
+    {% load static %}
+    <div class="container1">
+        <div class="wrapper" id="wrapper">
+            <div class="slide" style="background-image: url('{{ slider2_content.image.url }}');"></div>
+        <div class="slide" style="background-image: url('{{ slider1_content.image.url }}');"></div>
+        <div class="slide" style="background-image: url('{{ slider3_content.image.url }}');"></div>
+
+        </div>
+
+        <div class="fixed-info">
+            <h1 class="title">HopefullHands</h1>
+            <p class="desc">Bringing Hope, Changing Lives</p>
+            <a href="{% url 'donate' %}">
+                <button class="button">Start with a little</button>
+            </a>
+        </div>
     </div>
 
-    <div class="fixed-info">
-        <h1 class="title">Hopefullhands</h1>
-        <p class="desc">Bringing Hope, Changing Lives</p>
-        <a href="{% url 'donate' %}">
-            <button class="button">Start with a little</button>
-        </a>
-
-    </div>
-</div>
-
-<script>
+    <script>
         const wrapper = document.getElementById('wrapper');
         const slides = document.getElementsByClassName('slide');
         let slideIndex = 0;
@@ -166,9 +173,7 @@
 
         // Initially show the first slide
         showSlide(slideIndex);
-
-
-</script>
+    </script>
 </body>
 
 </html>

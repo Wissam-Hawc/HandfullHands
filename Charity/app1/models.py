@@ -26,7 +26,7 @@ class Donation(models.Model):
     amount = models.IntegerField()
     program = models.ForeignKey('Program', on_delete=models.CASCADE)
     date = models.DateTimeField(auto_now_add=True)
-    stripeid = models.CharField(max_length=100, unique=True,null=True)
+    stripeid = models.CharField(max_length=100, unique=True, null=True)
     status = models.CharField(max_length=50, default='success')
 
     def __str__(self):
@@ -45,6 +45,7 @@ class Program(models.Model):
     program_challenge = models.CharField(max_length=2000, default='Default Value')
     program_objective = models.CharField(max_length=2000, default='Default Value')
     program_plan = models.CharField(max_length=2000, default='Default Value')
+
     def __str__(self):
         return self.program_name
 
@@ -77,7 +78,3 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.full_name
-
-
-
-

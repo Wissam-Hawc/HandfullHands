@@ -53,36 +53,19 @@
             margin-bottom: 20px;
             padding: 20px;
         }
+        @media (max-width: 767px) {
+    .diagrams-container {
+        flex-direction: column;
+        align-items: center;
+    }
 
-        .special-thanks-container {
-            margin-top: 60px;
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: center;
-        }
+    .diagram-container {
+        width: 80%;
+        margin-bottom:60px;
+    }
 
-        .special-thanks-title {
-            margin-bottom: 20px;
-            text-align: center;
-            border-bottom: 1px solid #3c8eb2;
-            padding-bottom: 10px;
-            width: 75%;
-            margin-left: auto;
-            margin-right: auto;
-        }
+}
 
-        .special-thanks-image {
-            width: 100px;
-            height: 100px;
-            object-fit: cover;
-            border-radius: 50%;
-            margin-bottom: 10px;
-        }
-
-        .special-thanks-description {
-            text-align: center;
-        }
     </style>
 </head>
 <body>
@@ -91,7 +74,7 @@
 {% include 'components/navbar.html' %}
 
 <div class="whycontainer">
-    <h1>In HopefullHands, despair meets its end, and hope reignites.</h1>
+    <h1>Working towards a better future</h1>
     <p>HopefullHands: A Ray of Light in the Darkness
 
 In a world teeming with challenges, where despair and hardships cast their long shadows, there exists a beacon of hope, an organization that stands tall amidst the darkness. Welcome to HopefullHands, where compassion meets action, and dreams are ignited with unwavering determination.
@@ -118,23 +101,6 @@ Imagine a world where every child has the opportunity to learn, where their pote
         <div class="diagram-container">
             <h3>Hungry People</h3>
             <canvas id="hungryChart"></canvas>
-        </div>
-    </div>
-
-    <h2 class="section-title">Special Thanks</h2>
-
-    <div class="special-thanks-container">
-        <div>
-            <img src="image1.jpg" alt="Person 1" class="special-thanks-image">
-            <p class="special-thanks-description">Description of Person 1</p>
-        </div>
-        <div>
-            <img src="image2.jpg" alt="Person 2" class="special-thanks-image">
-            <p class="special-thanks-description">Description of Person 2</p>
-        </div>
-        <div>
-            <img src="image3.jpg" alt="Person 3" class="special-thanks-image">
-            <p class="special-thanks-description">Description of Person 3</p>
         </div>
     </div>
 </div>
