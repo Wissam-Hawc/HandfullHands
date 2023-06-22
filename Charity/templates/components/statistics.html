@@ -8,16 +8,17 @@
     .container444 {
       color: #3e8da8;
       display: inline-block;
+      margin-left: -12px;
+      margin-right: 60px;
       margin-bottom: 20px;
       text-align: center;
+      width: 32%;
       border: 1px solid #0056b3;
       padding: 10px;
-      box-sizing: border-box; /* Ensure padding is included in the width calculation */
     }
 
     .container444 .chart444 {
       margin-bottom: 20px;
-      margin-left: 10px;
     }
 
     .container444 .chart444 canvas {
@@ -26,56 +27,33 @@
       max-height: 300px;
     }
 
-    .container444 h2 {
-      font-size: 14px; /* Adjust the font size as desired */
-      margin-top: 0;
-    }
-
     .row444 {
-      width: 90%; /* Occupy full width of the parent */
+      white-space: nowrap;
+      border-top: 4px;
+      width: 75%;
       margin: 0 auto;
       padding-top: 20px;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center; /* Center the containers horizontally */
-      align-items: center; /* Center the containers vertically */
     }
 
-    .container444 {
-      width: 100%; /* Show a single chart on smaller screens */
-    }
-
-    @media screen and (min-width: 600px) {
+    @media screen and (max-width: 600px) {
       .container444 {
-        width: calc(50% - 20px); /* Show two charts with gap on tablets */
-        margin-right: 20px; /* Add space between charts */
+        width: 100%;
+        margin-bottom: 20px;
+        margin-left:23%;
       }
-      .container444:last-child {
-        margin-right: 0; /* Remove space from the last chart */
-      }
-    }
 
-    @media screen and (min-width: 900px) {
-      .container444 {
-        width: calc(50% - 20px); /* Show three charts with gap on larger screens */
+      .container444 h2 {
+        font-size: 16px; /* Adjust the font size as needed */
       }
-    }
 
-    @media screen and (max-width: 768px) { /* Modified media query for tablets */
-      .container444 {
-        width: 100%; /* Show only one chart on tablets */
+      .container444 .chart444 canvas {
+        max-height: 200px;
       }
-    }
 
-    /* Animation keyframes */
-    @keyframes moveIn {
-      0% {
-        opacity: 0;
-        transform: translateX(100%); /* Adjusted to move from the right */
-      }
-      100% {
-        opacity: 1;
-        transform: translateX(0);
+      .row444 {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
       }
     }
   </style>
@@ -94,68 +72,103 @@
         <canvas id="homeless-chart444"></canvas>
       </div>
     </div>
+    <div class="container444">
+      <div class="chart444">
+        <h2>Under poverty line</h2>
+        <canvas id="third-chart"></canvas>
+      </div>
+    </div>
   </div>
 
-  <script>
-    // Sample data for demonstration purposes
-    var kidsData = [1000, 1500, 1200, 2000, 1800];
-    var homelessData = [500, 700, 600, 800, 900];
+<script>
+  // Sample data for demonstration purposes
+  var kidsData = [1000, 1500, 1200, 2000, 1800];
+  var homelessData = [500, 700, 600, 800, 900];
 
-    // Create the kids chart
-    var kidsChartCanvas = document.getElementById('kids-chart444').getContext('2d');
-    var kidsChart = new Chart(kidsChartCanvas, {
-      type: 'line',
-      data: {
-        labels: ['2017', '2018', '2019', '2020', '2021'],
-        datasets: [{
-          label: 'Kids Outside School',
-          data: kidsData,
-          backgroundColor: 'rgba(0, 123, 255, 0.5)',
-          borderColor: 'rgba(0, 123, 255, 1)',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 500
-            }
+  // Create the kids chart
+  var kidsChartCanvas = document.getElementById('kids-chart444').getContext('2d');
+  var kidsChart = new Chart(kidsChartCanvas, {
+    type: 'line',
+    data: {
+      labels: ['2017', '2018', '2019', '2020', '2021'],
+      datasets: [{
+        label: 'Kids Outside School',
+        data: kidsData,
+        backgroundColor: 'rgba(0, 123, 255, 0.5)',
+        borderColor: 'rgba(0, 123, 255, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 500
           }
         }
       }
-    });
+    }
+  });
 
-    // Create the homeless chart
-    var homelessChartCanvas = document.getElementById('homeless-chart444').getContext('2d');
-    var homelessChart = new Chart(homelessChartCanvas, {
-      type: 'line',
-      data: {
-        labels: ['2017', '2018', '2019', '2020', '2021'],
-        datasets: [{
-          label: 'Homeless People',
-          data: homelessData,
-          backgroundColor: 'rgba(255, 99, 132, 0.5)',
-          borderColor: 'rgba(255, 99, 132, 1)',
-          borderWidth: 2
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        scales: {
-          y: {
-            beginAtZero: true,
-            ticks: {
-              stepSize: 200
-            }
+  // Create the homeless chart
+  var homelessChartCanvas = document.getElementById('homeless-chart444').getContext('2d');
+  var homelessChart = new Chart(homelessChartCanvas, {
+    type: 'line',
+    data: {
+      labels: ['2017', '2018', '2019', '2020', '2021'],
+      datasets: [{
+        label: 'Homeless People',
+        data: homelessData,
+        backgroundColor: 'rgba(255, 99, 132, 0.5)',
+        borderColor: 'rgba(255, 99, 132, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 200
           }
         }
       }
-    });
-  </script>
+    }
+  });
+
+  // Create the third chart
+  var thirdChartCanvas = document.getElementById('third-chart').getContext('2d');
+  var thirdChart = new Chart(thirdChartCanvas, {
+    type: 'bar',
+    data: {
+      labels: ['2020', ' 2021', '2022 '],
+      datasets: [{
+        label: 'Impovrished People',
+        data: [50, 75, 100],
+        backgroundColor: 'rgba(75, 192, 192, 0.5)',
+        borderColor: 'rgba(75, 192, 192, 1)',
+        borderWidth: 2
+      }]
+    },
+    options: {
+      responsive: true,
+      maintainAspectRatio: false,
+      scales: {
+        y: {
+          beginAtZero: true,
+          ticks: {
+            stepSize: 25
+          }
+        }
+      }
+    }
+  });
+</script>
+
 </body>
 </html>
