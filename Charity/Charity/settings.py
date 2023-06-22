@@ -138,3 +138,4 @@ CHANNEL_LAYERS = {
     },
 }
 ASGI_APPLICATION = "Charity.asgi.application"
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
