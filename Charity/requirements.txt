@@ -6,3 +6,4 @@ pillow==9.5.0
 daphne==4.0.0
 channels_redis==4.1.0
 redis-server==6.0.16
+django-cors-headers==4.1.0

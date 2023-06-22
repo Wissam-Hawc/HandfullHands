@@ -21,6 +21,7 @@ ALLOWED_HOSTS = ["*"]
 INSTALLED_APPS = [
     'daphne',
     'channels',
+    'corsheaders',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -39,6 +40,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'Charity.urls'
@@ -142,3 +144,6 @@ ASGI_APPLICATION = "Charity.asgi.application"
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SECURE = True
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CORS_ALLOWED_ORIGINS = [
+    'https://hopefullhands.navybits.com',
+]
