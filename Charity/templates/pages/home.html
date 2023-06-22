@@ -37,7 +37,7 @@
 </style>
 
 <script>
-  const socket = new WebSocket(`ws://${window.location.host}/ws/notification/`);
+  const socket = new WebSocket(`wss://${window.location.host}/ws/notification/`);
 
   socket.onmessage = function (event) {
     const data = JSON.parse(event.data);
