@@ -143,7 +143,7 @@
   }
 
   /* Media Query for small screens */
-  @media screen and (orientation: landscape) and (max-width: 768px) {
+  @media screen and (max-width: 768px) {
     .navbar {
       flex-direction: column;
       align-items: flex-start;
@@ -182,6 +182,47 @@
       font-size: 16px;
     }
   }
+  /* Media Query for landscape orientation */
+@media screen and (orientation: landscape) and (max-width: 1024px) {
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+  }
+
+  .logo h3 {
+    margin-top: 16px;
+  }
+
+  .logo img {
+    display: none;
+  }
+
+  .menu-toggle {
+    margin-right: 2px;
+    margin-left: auto;
+  }
+
+  .menu {
+    padding: 20px;
+  }
+
+  .current-location {
+    font-size: 1.6em;
+    margin-top: 20px;
+    display: none;
+  }
+
+  .menu li {
+    margin-bottom: 10px;
+  }
+
+  .menu a {
+    padding: 5px 10px;
+    font-size: 16px;
+  }
+}
+
 
   /* Media Query for big screens */
   @media screen and (min-width: 769px) {
