@@ -76,12 +76,6 @@
         <span aria-hidden="true">&times;</span>
     </button>
 </div>
-
-<script>
-    function closeErrorAlert() {
-        document.getElementById("error_alert").style.display = "none";
-    }
-</script>
 {% endif %}
 {% include 'components/navbar.html' %}
 
@@ -206,7 +200,9 @@
             // Submit the form
             form.submit();
         }
-
+    function closeErrorAlert() {
+        document.getElementById("error_alert").style.display = "none";
+    }
 </script>
 </body>
 </html>
