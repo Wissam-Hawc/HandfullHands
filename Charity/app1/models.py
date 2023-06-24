@@ -2,14 +2,6 @@ from django.contrib.auth.models import User
 from django.db import models
 
 
-class Profile(models.Model):
-    phone = models.CharField(max_length=12, default="", unique=True)
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.user.username
-
-
 class GuestUser(models.Model):
     username = models.CharField(max_length=150)
 
@@ -53,7 +45,6 @@ class Program(models.Model):
 class Content(models.Model):
     PAGE_CHOICES = [
         ('about', 'About'),
-        ('contact', 'Contact'),
         ('home-slider1', 'Home Slider 1'),
         ('home-slider2', 'Home Slider 2'),
         ('home-slider3', 'Home Slider 3'),

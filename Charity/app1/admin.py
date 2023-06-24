@@ -1,15 +1,8 @@
 from channels.layers import get_channel_layer
 from django.contrib import admin
-from django.db.models import F,Sum
+from django.db.models import F, Sum
 
-from .models import Profile, Donation, Program, Content, Contact, GuestUser
-
-
-# channel_layer = get_channel_layer()
-
-
-class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('user', 'phone')
+from .models import Donation, Program, Content, Contact, GuestUser
 
 
 class DonationAdmin(admin.ModelAdmin):
@@ -35,6 +28,7 @@ class DonationAdmin(admin.ModelAdmin):
 
         queryset.delete()
 
+
 class ProgramAdmin(admin.ModelAdmin):
     list_display = ('program_name', 'program_description', 'budget', 'start_date', 'end_date')
 
@@ -52,7 +46,6 @@ class GuestUserAdmin(admin.ModelAdmin):
 
 
 admin.site.register(GuestUser, GuestUserAdmin)
-admin.site.register(Profile, ProfileAdmin)
 admin.site.register(Donation, DonationAdmin)
 admin.site.register(Program, ProgramAdmin)
 admin.site.register(Content, ContentAdmin)
