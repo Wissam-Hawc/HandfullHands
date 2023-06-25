@@ -31,6 +31,7 @@ class DonationAdmin(admin.ModelAdmin):
 
 class ProgramAdmin(admin.ModelAdmin):
     list_display = ('program_name', 'program_description', 'budget', 'start_date', 'end_date')
+    change_form_template = 'admin/program_admin_change_form.html'
 
 
 class ContentAdmin(admin.ModelAdmin):

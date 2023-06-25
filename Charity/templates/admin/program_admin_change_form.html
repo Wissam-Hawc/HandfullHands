@@ -1,0 +1,29 @@
+{% extends "admin/change_form.html" %}
+
+{% block submit_buttons_bottom %}
+    <div class="submit-row">
+        <input type="submit" value="Save" class="default" name="_continue" />
+        <button type="button" onclick="enhanceText()">Enhance Text</button>
+        <script>
+            function enhanceText() {
+                fetch("{% url 'enhance_program_description' original.id %}", {
+                    method: "POST",
+                    headers: {
+                        "X-CSRFToken": "{{ csrf_token }}",
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success == false) {
+                        alert("Program description enhancement failed.");
+                    }
+                  window.location.reload()
+                })
+                .catch(error => {
+                    console.error("Error enhancing program description:", error);
+                    alert("An error occurred while enhancing the program description.");
+                });
+            }
+        </script>
+    </div>
+{% endblock %}
