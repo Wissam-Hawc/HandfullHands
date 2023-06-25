@@ -1,7 +1,13 @@
 from pathlib import Path
 import os
 from django.conf import settings
+from dotenv import load_dotenv
 
+# Load the .env file
+load_dotenv()
+
+# Get the API key from the environment variable
+OPENAI_API_KEY = os.getenv('OPENAI_API_KEY')
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 

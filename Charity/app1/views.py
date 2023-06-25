@@ -9,7 +9,7 @@ from django.http import JsonResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
-
+from django.conf import settings
 from .models import Content, Program, Contact, Donation, GuestUser
 import stripe
 import openai
@@ -251,7 +251,7 @@ def program_details(request, program_id):
 
 
 def enhance_text_with_openai(text, program_name):
-    openai.api_key = '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'
+    openai.api_key = settings.OPENAI_API_KEY
     prompt = "You are a Charity Owner, can you write a more professional description for the program '{}' in a maximum of 3 lines: {}".format(program_name, text)
     response = openai.Completion.create(
         engine='text-davinci-003',
